@@ -1,0 +1,19 @@
+
+
+
+import 'package:app/widgets/home/home.dart';
+import 'package:flutter/material.dart';
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'ALA',
+      theme: ThemeData(primaryColor: Colors.white),
+      home: HomePage()
+      );
+  }
+}
