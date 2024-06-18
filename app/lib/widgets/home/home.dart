@@ -1,4 +1,5 @@
 // ignore: use_key_in_widget_constructors
+import 'package:app/utils/buttons.dart';
 import 'package:app/utils/forms.dart';
 import 'package:app/utils/text_fields.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // ignore: unused_field
   bool _isButtonDisabled = true;
 
 
@@ -33,29 +35,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
      return Scaffold(
       body: SingleChildScrollView(
-            child: Container(
+
+            child:  Container(
               alignment: Alignment.center,
-              height: 600,
+              height: 800,
               //media query
-              color: Colors.white,
+              color: Colors.amber.shade50,
               padding:
-                  const EdgeInsets.only(top: 80, left: 16, right: 16, bottom: 16),
-                  child: Column(
+                  const EdgeInsets.only(top: 80, left: 1, right: 16, bottom: 16),
+                  child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                
+                Padding( padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
                       CustomForm(
-          colorContainer: Colors.indigoAccent.withOpacity(0.3),
-          height: 270,
-          
+          colorContainer: Colors.grey.shade600.withOpacity(0.0),
+          width: 420,
+
           formKey: _formKey,
-          child: Column(
-
-
-      
-      children: [
-        const Padding(padding: EdgeInsets.only(right: 100),
-        child:  Text("Enter your email to reset your password.", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          child: Column(  children: [
+        const Padding( padding: EdgeInsets.only(bottom: 20),
+        child:  Text("Your languague skills into another level.", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         
         CustomTextFormField(
               labelText: "Username", 
@@ -66,23 +71,45 @@ class _HomePageState extends State<HomePage> {
               validator: textFormIsNotEmpty),
         const SizedBox(height: 10),
         CustomTextFormField(
-              labelText: "Username", 
+              labelText: "Password", 
               ifIsEmptyReturn: ifIsEmptyReturn.password, 
               onChanged: _onChanged, 
               controller: passwordController,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword, 
               validator: textFormIsPassword),
+        
+        const SizedBox(height: 30),
+        CustomIconAndTextButton(
+            icon: Icons.arrow_forward_ios_sharp, 
+            onPressed:  _isButtonDisabled ? null : () => {},
+            text: "Login", 
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+            switchToColumn: false,
+            
+            btnStyle: defaultBtnStyle(context, const EdgeInsets.symmetric(horizontal: 125, vertical: 20)),
+            ),
 
-
-
-        const Text("Check your spam folder, we will send you an email with a link to reset your password.", 
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.black )),
+        const SizedBox(height: 60),
+        const Padding( padding: EdgeInsets.only(top: 1),
+        child:  Text("To login is needed to be a student from ALA Language School", 
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.normal, color: Colors.black ))),
       ])
       )
                     
                     ],
-                  ),
+                  )),
+
+                  Container(
+                  width: 400,
+                  height: 500,
+                  color: Colors.black,
+                ),
+                  
+                
+                  
+                  
+                  ]),
             ),
         ),
     );

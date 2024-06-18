@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ALA',
+      title: 'ALA School',
       theme: ThemeData(primaryColor: Colors.white),
       home: HomePage()
       );

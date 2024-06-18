@@ -17,7 +17,7 @@ class CustomImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Image.asset(
       'assets/images/$assetName',
       width: width,
