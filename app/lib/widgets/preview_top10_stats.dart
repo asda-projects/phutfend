@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app/services/translation.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
@@ -113,9 +114,9 @@ class _Top10PlayersState extends State<Top10Players> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Text(
+            child: TranslatableText(
               'Top 10',
-              style: TextStyle(color: Colors.white, fontSize: titleRankingSize),
+               TextStyle(color: Colors.white, fontSize: titleRankingSize),
             ),
           ),
           const Padding(

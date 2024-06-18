@@ -1,4 +1,6 @@
+import 'package:app/services/translation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 regexToCheckEmail(value) {
   return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
@@ -50,87 +52,113 @@ textFormIsOnlyNumbers(value, String ifIsEmptyReturn) {
 }
 
 
-class ifIsEmptyReturn {
-  static String username = "2+ characters. Letters, numbers...\nunderscore and etc.";
-  static String email = "eg: username@example.com...\nminimum after dot is 2 characters. eg: .co";
-  static String password = "7+ char, letters, num, & symb...\nPassword shown encrypted in app.";
-  static String phoneNumber = "Add country code, province/state...\n and number. eg: 01234567890";
-  static String name = "2+ characters...\n Only letters.";
-  static String confirmationCode = "6 digits...\nOnly numbers. eg: 123456";
+
+
+class IfIsEmptyReturn {
+  static const String username = "2+ characters. Letters, numbers...\nunderscore and etc.";
+  static const String email = "eg: username@example.com...\nminimum after dot is 2 characters. eg: .co";
+  static const String password = "7+ char, letters, num, & symb...\nPassword shown encrypted in app.";
+  static const String phoneNumber = "Add country code, province/state...\n and number. eg: 01234567890";
+  static const String name = "2+ characters...\n Only letters.";
+  static const String confirmationCode = "6 digits...\nOnly numbers. eg: 123456";
+
+  static Future<String> getTranslatedString(String text, BuildContext context) async {
+    final languageCode = Provider.of<LanguageProvider>(context, listen: false).languageCode;
+    final translationService = TranslationService();
+
+    return await translationService.translateText(text, languageCode);
+  }
 }
+
 
 
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String ifIsEmptyReturn;
-  final  onChanged;
+  final Function(String) onChanged;
   final TextEditingController controller;
   final bool obscureText;
-  final keyboardType;
+  final TextInputType keyboardType;
   final dynamic validator;
   final int? maxLength;
   final int? maxLines;
   final TextStyle? labelStyle;
   final TextStyle? hintStyle;
 
+  const CustomTextFormField({
+    super.key,
+    required this.labelText,
+    required this.ifIsEmptyReturn,
+    required this.onChanged,
+    required this.controller,
+    this.labelStyle,
+    this.hintStyle,
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text,
+    this.validator,
+    this.maxLength,
+    this.maxLines = 1,
+  });
 
-  const CustomTextFormField(
-      {super.key,
-      required this.labelText,
-      required this.ifIsEmptyReturn,
-      required this.onChanged,
-      required this.controller,
-      this.labelStyle,
-      this.hintStyle,
-      this.obscureText = false,
-      this.keyboardType = TextInputType.text,
-      this.validator,
-      this.maxLength, 
-      this.maxLines = 1
-      });
+  Future<String> _getTranslatedHint(BuildContext context) async {
+    return await IfIsEmptyReturn.getTranslatedString(ifIsEmptyReturn, context);
+  }
 
-  
-  validate(validator_, value)  {
-    
+  Future<String> _getTranslatedLabel(BuildContext context) async {
+    return await IfIsEmptyReturn.getTranslatedString(labelText, context);
+  }
+
+  validate(validator_, value) {
     validator_ ??= textFormIsNotEmpty;
-
     return validator_(value, ifIsEmptyReturn);
   }
 
   _labelStyle() {
     return labelStyle ?? const TextStyle(
-      fontSize: 16, 
+      fontSize: 16,
     );
   }
 
   _hintStyle() {
     return hintStyle ?? const TextStyle(
-      fontSize: 14, 
+      fontSize: 14,
     );
   }
 
-
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<String>>(
+      future: Future.wait([
+        _getTranslatedLabel(context),
+        _getTranslatedHint(context),
+      ]),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator(color: Colors.greenAccent);
+        }
 
+        final translatedLabel = snapshot.data![0];
+        final translatedHint = snapshot.data![1];
 
-
-    return TextFormField(
-      maxLines: maxLines,
-      enableSuggestions: false,
-      maxLength: maxLength,
-      autofillHints: [],
-      controller: controller,
-      
-      decoration: InputDecoration(labelText: labelText, hintText: ifIsEmptyReturn, 
-      labelStyle: _labelStyle(),
-    hintStyle: _hintStyle()),
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-      validator: (value) => validate(validator, value),
-      onChanged: onChanged,
+        return TextFormField(
+          maxLines: maxLines,
+          enableSuggestions: false,
+          maxLength: maxLength,
+          autofillHints: [],
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: translatedLabel,
+            hintText: translatedHint,
+            labelStyle: _labelStyle(),
+            hintStyle: _hintStyle(),
+          ),
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          validator: (value) => validate(validator, value),
+          onChanged: onChanged,
+        );
+      },
     );
   }
 }
-

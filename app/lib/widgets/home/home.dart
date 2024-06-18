@@ -1,4 +1,5 @@
 // ignore: use_key_in_widget_constructors
+import 'package:app/services/translation.dart';
 import 'package:app/utils/assets.dart';
 import 'package:app/utils/buttons.dart';
 import 'package:app/utils/forms.dart';
@@ -35,7 +36,17 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
+
+
+
      return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(180, 255, 255, 207),
+        actions: [
+        Padding( padding: const EdgeInsets.only(right: 20),
+              child: LanguageSelector())
+
+      ]),
       body: SingleChildScrollView(
 
             child:  Container(
@@ -67,16 +78,16 @@ class _HomePageState extends State<HomePage> {
 
                       CustomForm(
           colorContainer: Colors.grey.shade600.withOpacity(0.0),
-          width: 420,
+          width: 500,
 
           formKey: _formKey,
           child: Column(  children: [
         const Padding( padding: EdgeInsets.only(bottom: 20),
-        child:  Text("Your languague skills into another level.", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        child:  TranslatableText("Your languague skills into another level.",  TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         
         CustomTextFormField(
               labelText: "Username", 
-              ifIsEmptyReturn: ifIsEmptyReturn.name, 
+              ifIsEmptyReturn: IfIsEmptyReturn.name, 
               onChanged: _onChanged, 
               controller: usernameController,
               keyboardType: TextInputType.name,
@@ -84,7 +95,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 10),
         CustomTextFormField(
               labelText: "Password", 
-              ifIsEmptyReturn: ifIsEmptyReturn.password, 
+              ifIsEmptyReturn: IfIsEmptyReturn.password, 
               onChanged: _onChanged, 
               controller: passwordController,
               obscureText: true,
@@ -104,8 +115,8 @@ class _HomePageState extends State<HomePage> {
 
         const SizedBox(height: 60),
         const Padding( padding: EdgeInsets.only(top: 1),
-        child:  Text("To login is needed to be a student from ALA Language School", 
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.normal, color: Colors.black ))),
+        child:  TranslatableText("To login, is needed to be a student from ALA Language School", 
+        TextStyle(fontSize: 11, fontWeight: FontWeight.normal, color: Colors.black ))),
          const SizedBox(height: 4),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

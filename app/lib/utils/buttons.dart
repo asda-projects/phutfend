@@ -1,3 +1,4 @@
+import 'package:app/services/translation.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,9 +14,6 @@ ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {
 );
 
 }
-
-
-
 
 
 
@@ -46,15 +44,11 @@ class CustomIconAndTextButton extends StatelessWidget {
       this.switchToColumn = false,
       this.iconSize = 20,
       this.iconColor = Colors.white,
-      this.textColor = Colors.white
-
-      
-      });
+      this.textColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-
-    ButtonStyle defaultStyle = btnStyle ?? TextButton.styleFrom( 
+    ButtonStyle defaultStyle = btnStyle ?? TextButton.styleFrom(
       foregroundColor: textColor,
     );
 
@@ -62,34 +56,28 @@ class CustomIconAndTextButton extends StatelessWidget {
       fontSize: 16,
     );
 
-    
-
     List<Widget> widgets = [];
 
     if (addIcon) {
       widgets.add(Icon(icon, size: iconSize, color: iconColor));
     }
 
-    if (addText) {
-        widgets.add(Padding(
-      padding: padding,
-      child: Text(text!, style: defaultTextStyle),
-    ));
+    if (addText && text != null) {
+      widgets.add(Padding(
+        padding: padding,
+        child: TranslatableText(text!, defaultTextStyle),
+      ));
     }
-
-    
-
-    
 
     return TextButton(
       style: defaultStyle,
       onPressed: onPressed,
-      child:  switchToColumn ? Column( children: widgets) : Row(
-        mainAxisAlignment: MainAxisAlignment.center ,
-        children: widgets),
-      
+      child: switchToColumn
+          ? Column(children: widgets)
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: widgets,
+            ),
     );
-    
   }
 }
-
