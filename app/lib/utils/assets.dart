@@ -29,7 +29,7 @@ class CustomImage extends StatelessWidget {
 
 
 AssetImage customAssetImagem(String assetName) {
-    return AssetImage("img/$assetName");
+    return AssetImage("images/$assetName");
 
 }
 
@@ -53,6 +53,7 @@ class CustomDecorationImage extends BoxDecoration {
            alignment: alignment,
            filterQuality: FilterQuality.high,
            fit: fit
+           
 
          ),
        );

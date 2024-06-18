@@ -1,7 +1,9 @@
 // ignore: use_key_in_widget_constructors
+import 'package:app/utils/assets.dart';
 import 'package:app/utils/buttons.dart';
 import 'package:app/utils/forms.dart';
 import 'package:app/utils/text_fields.dart';
+import 'package:app/widgets/preview_top10_stats.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,10 +42,20 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.center,
               height: 800,
               //media query
-              color: Colors.amber.shade50,
+              decoration:  const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color.fromARGB(168, 255, 255, 207), Colors.white, Colors.white ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+         
+        )),
               padding:
                   const EdgeInsets.only(top: 80, left: 1, right: 16, bottom: 16),
-                  child: Row(
+                  child: SingleChildScrollView( 
+                    scrollDirection: Axis.horizontal,
+                    child: 
+        
+        Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 
@@ -94,22 +106,133 @@ class _HomePageState extends State<HomePage> {
         const Padding( padding: EdgeInsets.only(top: 1),
         child:  Text("To login is needed to be a student from ALA Language School", 
         style: TextStyle(fontSize: 11, fontWeight: FontWeight.normal, color: Colors.black ))),
+         const SizedBox(height: 4),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+              CustomIconAndTextButton(
+            icon: Icons.public , 
+            iconColor: Colors.black,
+            onPressed:  () => {},
+            addText: false,
+            text: "", 
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            switchToColumn: false,
+            
+            btnStyle:  TextButton.styleFrom(
+            
+            
+            disabledForegroundColor: Colors.grey.withOpacity(0.38),
+            
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+),
+            ),
+                CustomIconAndTextButton(
+            icon: Icons.facebook , 
+            iconColor: Colors.blue.shade900,
+            onPressed:  () => {},
+            addText: false,
+            text: "", 
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            switchToColumn: false,
+            
+            btnStyle:  TextButton.styleFrom(
+            
+            
+            disabledForegroundColor: Colors.grey.withOpacity(0.38),
+            
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+),
+            )
+            ,
+                CustomIconAndTextButton(
+            icon: Icons.camera_alt_outlined , 
+            iconColor: Colors.pink.shade300,
+            onPressed:  () => {},
+            addText: false,
+            text: "", 
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            switchToColumn: false,
+            
+            btnStyle:  TextButton.styleFrom(
+            
+            
+            disabledForegroundColor: Colors.grey.withOpacity(0.38),
+            
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+),
+            )
+            ,
+                CustomIconAndTextButton(
+            icon: Icons.live_tv_sharp , 
+            iconColor: Colors.red.shade900,
+            onPressed:  () => {},
+            addText: false,
+            text: "", 
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            switchToColumn: false,
+            
+            btnStyle:  TextButton.styleFrom(
+            
+            
+            disabledForegroundColor: Colors.grey.withOpacity(0.38),
+            
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+),
+            ),
+                CustomIconAndTextButton(
+            icon: Icons.forum_rounded ,
+            iconColor: Colors.greenAccent.shade400,
+            onPressed:  () => {},
+            addText: false,
+            text: "", 
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+            switchToColumn: false,
+            
+            btnStyle:  TextButton.styleFrom(
+            
+            
+            disabledForegroundColor: Colors.grey.withOpacity(0.38),
+            
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+),
+            )
+
+
+
+        ],)
       ])
       )
                     
                     ],
                   )),
 
-                  Container(
-                  width: 400,
-                  height: 500,
-                  color: Colors.black,
-                ),
+                 Container(
+                  width: 210,
+                  decoration:  CustomDecorationImage(
+              alignment: Alignment.bottomCenter,
+              assetName: "elephant.png",
+              fit: BoxFit.none
+              ),
+                 ),
+
+                  Top10Players(),
                   
                 
                   
                   
-                  ]),
+                  ])
+                  ),
             ),
         ),
     );

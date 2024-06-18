@@ -22,9 +22,10 @@ ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {
 class CustomIconAndTextButton extends StatelessWidget {
   final IconData icon;
   final void Function()? onPressed;
-  final String text;
+  final String? text;
   final EdgeInsets padding;
   final bool addIcon;
+  final bool addText;
   final dynamic btnStyle;
   final dynamic txtStyle;
   final bool switchToColumn;
@@ -36,9 +37,10 @@ class CustomIconAndTextButton extends StatelessWidget {
       {super.key,
       required this.icon,
       required this.onPressed,
-      required this.text,
+      this.text,
       required this.padding,
       this.addIcon = true,
+      this.addText = true,
       this.btnStyle,
       this.txtStyle,
       this.switchToColumn = false,
@@ -68,17 +70,23 @@ class CustomIconAndTextButton extends StatelessWidget {
       widgets.add(Icon(icon, size: iconSize, color: iconColor));
     }
 
-    widgets.add(Padding(
+    if (addText) {
+        widgets.add(Padding(
       padding: padding,
-      child: Text(text, style: defaultTextStyle),
+      child: Text(text!, style: defaultTextStyle),
     ));
+    }
+
+    
 
     
 
     return TextButton(
       style: defaultStyle,
       onPressed: onPressed,
-      child:  switchToColumn ? Column( children: widgets) : Row(children: widgets),
+      child:  switchToColumn ? Column( children: widgets) : Row(
+        mainAxisAlignment: MainAxisAlignment.center ,
+        children: widgets),
       
     );
     
