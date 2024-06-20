@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:app/services/translation.dart';
+
+import 'package:app/utils/text_fields.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 

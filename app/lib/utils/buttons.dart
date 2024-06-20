@@ -1,5 +1,7 @@
 import 'package:app/services/translation.dart';
+import 'package:app/utils/text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -81,3 +83,61 @@ class CustomIconAndTextButton extends StatelessWidget {
     );
   }
 }
+
+
+
+
+class LanguageSelector extends StatelessWidget {
+  const LanguageSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        hoverColor: Colors.transparent,
+        focusColor:  Colors.transparent,
+
+      ),
+      child: DropdownButton<String>(
+          dropdownColor: Color.fromRGBO(0, 0, 0, 0.886),
+           
+          underline: Container(), // Remove underline
+          borderRadius: BorderRadius.circular(10.0), // Adiciona bordas arredondadas
+          
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 55, left: 0),
+            child: Icon(Icons.translate, color: Colors.black),
+          ),
+          
+          items: const [
+             DropdownMenuItem<String>(
+              value: 'en',
+              child: Text('English', style:  TextStyle(color: Colors.white54)),
+            ),
+            DropdownMenuItem<String>(
+              value: 'th',
+              child: Text('ไทย', style:  TextStyle(color: Colors.white54)),
+            ),
+            DropdownMenuItem<String>(
+              value: 'pt',
+              child: Text('Português', style:  TextStyle(color: Colors.white54)),
+            ),
+            DropdownMenuItem<String>(
+              value: 'zh-cn',
+              child: Text('中文', style:  TextStyle(color: Colors.white54)),
+            ),
+          ],
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              Provider.of<LanguageProvider>(context, listen: false).changeLanguage(newValue);
+            }
+          },
+        
+      
+    ));
+  }
+}
+
+
+
+

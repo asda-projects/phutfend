@@ -1,16 +1,21 @@
 // ignore: use_key_in_widget_constructors
-import 'package:app/services/translation.dart';
+
 import 'package:app/utils/assets.dart';
 import 'package:app/utils/buttons.dart';
 import 'package:app/utils/forms.dart';
 import 'package:app/utils/text_fields.dart';
-import 'package:app/widgets/preview_top10_stats.dart';
+import 'package:app/widgets/home/preview_top10_stats.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
+  
+
+
 }
 
 class _HomePageState extends State<HomePage> {
@@ -18,12 +23,15 @@ class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  
 
   // ignore: unused_field
   bool _isButtonDisabled = true;
+  
 
 
     void _onChanged(dynamic value) {
+
     if (_formKey.currentState?.validate() == true) {
       setState(() => _isButtonDisabled = false);
     } else {
@@ -41,8 +49,8 @@ class _HomePageState extends State<HomePage> {
 
      return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(180, 255, 255, 207),
-        actions: [
+        backgroundColor: const Color.fromARGB(180, 255, 255, 207),
+        actions: const [
         Padding( padding: const EdgeInsets.only(right: 20),
               child: LanguageSelector())
 

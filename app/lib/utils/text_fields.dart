@@ -53,7 +53,6 @@ textFormIsOnlyNumbers(value, String ifIsEmptyReturn) {
 
 
 
-
 class IfIsEmptyReturn {
   static const String username = "2+ characters. Letters, numbers...\nunderscore and etc.";
   static const String email = "eg: username@example.com...\nminimum after dot is 2 characters. eg: .co";
@@ -135,7 +134,7 @@ class CustomTextFormField extends StatelessWidget {
       ]),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator(color: Colors.greenAccent);
+          return Container();
         }
 
         final translatedLabel = snapshot.data![0];
@@ -162,3 +161,46 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 }
+
+
+
+class TranslatableText extends StatefulWidget {
+  final String text;
+  final TextStyle style;
+
+  const TranslatableText(this.text, this.style, {super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _TranslatableTextState createState() => _TranslatableTextState();
+}
+
+
+
+class _TranslatableTextState extends State<TranslatableText> {
+  String translatedText = '';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _translateText();
+  }
+
+  Future<void> _translateText() async {
+    final languageCode = Provider.of<LanguageProvider>(context).languageCode;
+    final translationService = TranslationService();
+    final newText = await translationService.translateText(widget.text, languageCode);
+    setState(() {
+      translatedText = newText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      translatedText.isEmpty ? widget.text : translatedText,
+      style: widget.style,
+    );
+  }
+}
+
