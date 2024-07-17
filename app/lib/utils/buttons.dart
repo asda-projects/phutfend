@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {
   return TextButton.styleFrom(
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.black,
-    disabledForegroundColor: Colors.grey.withOpacity(0.38),
+    foregroundColor: Theme.of(context).colorScheme.onTertiary,
+    backgroundColor: Theme.of(context).colorScheme.tertiary,
+    // disabledForegroundColor: Theme.of(context).colorScheme.secondary,
     padding: padding,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -54,6 +54,7 @@ class CustomIconAndTextButton extends StatelessWidget {
 
     TextStyle defaultTextStyle = txtStyle ??
         const TextStyle(
+          fontFamily: 'Tahoma',
           fontSize: 16,
         );
 

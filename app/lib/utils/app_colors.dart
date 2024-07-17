@@ -38,13 +38,13 @@ class AppColors {
   static const Color lightPrimaryColor = Color.fromARGB(198, 0, 0, 0);
   static const Color lightSecondaryColor = Colors.white;
   static const Color lightAccentColor1 = Colors.yellow;
-  static const Color lightAccentColor2 = Colors.green;
+  static const Color lightAccentColor2 = Color.fromARGB(255, 62, 213, 135);
   static const Color lightNeutralColor = Colors.grey;
   // Dark Theme Colors
   static const Color darkPrimaryColor = Colors.white;
   static const Color darkSecondaryColor = Color.fromARGB(198, 0, 0, 0);
   static const Color darkAccentColor1 = Colors.yellow;
-  static const Color darkAccentColor2 = Colors.green;
+  static const Color darkAccentColor2 = Color.fromARGB(255, 62, 213, 135);
   static const Color darkNeutralColor = Colors.grey;
 }
 
@@ -54,9 +54,11 @@ ThemeData lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(
     primary: AppColors.lightPrimaryColor,
     secondary: AppColors.lightAccentColor1,
+    tertiary: AppColors.darkAccentColor2,
     surface: AppColors.lightSecondaryColor,
     onPrimary: AppColors.lightSecondaryColor,
     onSecondary: AppColors.lightPrimaryColor,
+    onTertiary: AppColors.darkSecondaryColor,
     onSurface: AppColors.lightNeutralColor,
     onError: Colors.red,
     error: Colors.red,
@@ -96,10 +98,12 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.darkSecondaryColor,
   colorScheme: const ColorScheme.dark(
     primary: AppColors.darkPrimaryColor,
-    secondary: AppColors.darkAccentColor1,
+    secondary: AppColors.darkAccentColor2,
+    tertiary: AppColors.darkAccentColor1,
     surface: AppColors.darkSecondaryColor,
     onPrimary: AppColors.darkSecondaryColor,
     onSecondary: AppColors.darkPrimaryColor,
+    onTertiary: AppColors.darkSecondaryColor,
     onSurface: AppColors.lightNeutralColor,
     onError: Colors.red,
     error: Colors.red,
@@ -128,7 +132,7 @@ ThemeData darkTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(AppColors.darkAccentColor1),
+      backgroundColor: WidgetStateProperty.all(AppColors.darkAccentColor2),
       foregroundColor: WidgetStateProperty.all(AppColors.darkPrimaryColor),
     ),
   ),

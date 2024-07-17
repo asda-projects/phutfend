@@ -1,7 +1,9 @@
 // ignore: use_key_in_widget_constructors
 
+import 'package:app/utils/assets.dart';
 import 'package:app/utils/buttons.dart';
 import 'package:app/utils/logs.dart';
+import 'package:app/utils/text_fields.dart';
 
 import 'package:app/widgets/home/preview_top5_stats.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
       ]),
       body: SingleChildScrollView(
         child: Container(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           height: MediaQuery.of(context).size.height,
           //media query
           decoration: BoxDecoration(
@@ -35,15 +37,25 @@ class HomePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           )),
-          padding: const EdgeInsets.only(top: 1, left: 1, right: 1, bottom: 1),
 
           child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Top5Players(),
                 Container(
-                  height: 2,
-                  color: Colors.amber,
+                    width: 300,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4), // Adjust the width as needed
+
+                    child: const CustomImage(
+                      assetName: "ala-logo.png",
+                      width: 100,
+                      height: 140,
+                    )),
+                const SizedBox(height: 4),
+                Top5Players(),
+                const SizedBox(
+                  height: 50,
                 ),
                 CustomIconAndTextButton(
                   icon: Icons.arrow_forward_ios_sharp,
