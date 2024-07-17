@@ -1,34 +1,46 @@
-import 'package:app/utils/buttons.dart';
-import 'package:app/utils/forms.dart';
-import 'package:app/utils/text_fields.dart';
+import 'package:app/boilerplate/buttons.dart';
+import 'package:app/boilerplate/forms.dart';
+import 'package:app/boilerplate/text_fields.dart';
+import 'package:app/utils/validation.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  bool _isButtonDisabled = true;
-
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController usernameController = TextEditingController();
+class LoginPage extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  void _onChanged(dynamic value) {
-    if (_formKey.currentState?.validate() == true) {
-      setState(() => _isButtonDisabled = false);
-    } else {
-      setState(() => _isButtonDisabled = true);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Hello World!");
+    return Scaffold(
+      appBar: AppBar(actions: const [
+        Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: LanguageSelector(reloadPage: true, pageName: "Login"))
+      ]),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            CustomTextFormField(
+              labelText: 'Email',
+              ifIsEmptyReturn: IfIsEmptyReturn.email,
+              onChanged: (value) {},
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              validator: textFormIsEmail,
+            ),
+            CustomTextFormField(
+              labelText: 'Password',
+              ifIsEmptyReturn: IfIsEmptyReturn.password,
+              onChanged: (value) {},
+              controller: passwordController,
+              obscureText: true,
+              validator: textFormIsPassword,
+            ),
+            // Add other form fields here
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -166,4 +178,25 @@ class _LoginPageState extends State<LoginPage> {
             ],
           )
         ]))
+
+
+
+
+        Container(
+                  width: 300,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4), // Adjust the width as needed
+                  child: TranslatableText(
+                    "feito para fazer lição de casa e treinar suas habilidades!",
+                    TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.normal,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontFamily: 'Tahoma',
+                    ),
+                    softWrap: true,
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
  */

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
 class TranslationService {
   final GoogleTranslator _translator = GoogleTranslator();
@@ -9,8 +9,15 @@ class TranslationService {
     var translation = await _translator.translate(text, to: targetLanguage);
     return translation.text;
   }
-}
 
+  static Future<String> getTranslatedString(
+      String text, BuildContext context) async {
+    final languageCode =
+        Provider.of<LanguageProvider>(context, listen: false).languageCode;
+    final translationService = TranslationService();
+    return await translationService.translateText(text, languageCode);
+  }
+}
 
 class LanguageProvider with ChangeNotifier {
   String _languageCode = 'en';
@@ -22,6 +29,3 @@ class LanguageProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-

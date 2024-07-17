@@ -1,9 +1,10 @@
 // ignore: use_key_in_widget_constructors
 
-import 'package:app/utils/assets.dart';
-import 'package:app/utils/buttons.dart';
+import 'package:app/boilerplate/assets.dart';
+import 'package:app/boilerplate/buttons.dart';
 import 'package:app/utils/logs.dart';
-import 'package:app/utils/text_fields.dart';
+import 'package:app/utils/navigation.dart';
+import 'package:app/boilerplate/text_fields.dart';
 
 import 'package:app/widgets/home/preview_top5_stats.dart';
 import 'package:flutter/material.dart';
@@ -45,21 +46,23 @@ class HomePage extends StatelessWidget {
                     width: 300,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10,
-                        vertical: 4), // Adjust the width as needed
+                        vertical: 1), // Adjust the width as needed
 
                     child: const CustomImage(
                       assetName: "ala-logo.png",
-                      width: 100,
-                      height: 140,
+                      width: 80,
+                      height: 120,
                     )),
                 const SizedBox(height: 4),
                 Top5Players(),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 CustomIconAndTextButton(
                   icon: Icons.arrow_forward_ios_sharp,
-                  onPressed: () => {logger.debug("test")},
+                  onPressed: () {
+                    navigateToPage(context, "Login");
+                  },
                   text: "Login",
                   padding:
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 3),

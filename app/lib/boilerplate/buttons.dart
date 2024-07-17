@@ -1,6 +1,7 @@
 import 'package:app/services/translation.dart';
 import 'package:app/utils/app_colors.dart';
-import 'package:app/utils/text_fields.dart';
+import 'package:app/boilerplate/text_fields.dart';
+import 'package:app/utils/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -85,7 +86,9 @@ class CustomIconAndTextButton extends StatelessWidget {
 }
 
 class LanguageSelector extends StatelessWidget {
-  const LanguageSelector({super.key});
+  final bool reloadPage;
+  final String? pageName;
+  const LanguageSelector({super.key, this.reloadPage = false, this.pageName});
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +134,24 @@ class LanguageSelector extends StatelessWidget {
             if (newValue != null) {
               Provider.of<LanguageProvider>(context, listen: false)
                   .changeLanguage(newValue);
+
+              if (reloadPage) {
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        pageName != null ? localPages(pageName!) : {},
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: const Duration(milliseconds: 300),
+                  ),
+                );
+              }
             }
           },
         ));

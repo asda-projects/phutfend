@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/utils/app_colors.dart';
-import 'package:app/utils/text_fields.dart';
+import 'package:app/boilerplate/text_fields.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
