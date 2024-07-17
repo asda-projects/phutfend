@@ -1,23 +1,20 @@
 import 'package:app/services/translation.dart';
+import 'package:app/utils/app_colors.dart';
 import 'package:app/utils/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-
-ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {return TextButton.styleFrom(
-  foregroundColor: Colors.white,
-  backgroundColor:  Colors.black,
-  disabledForegroundColor: Colors.grey.withOpacity(0.38),
-  padding: padding,
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(10)),
-  ),
-);
-
+ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {
+  return TextButton.styleFrom(
+    foregroundColor: Colors.white,
+    backgroundColor: Colors.black,
+    disabledForegroundColor: Colors.grey.withOpacity(0.38),
+    padding: padding,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+  );
 }
-
-
 
 class CustomIconAndTextButton extends StatelessWidget {
   final IconData icon;
@@ -50,13 +47,15 @@ class CustomIconAndTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle defaultStyle = btnStyle ?? TextButton.styleFrom(
-      foregroundColor: textColor,
-    );
+    ButtonStyle defaultStyle = btnStyle ??
+        TextButton.styleFrom(
+          foregroundColor: textColor,
+        );
 
-    TextStyle defaultTextStyle = txtStyle ?? const TextStyle(
-      fontSize: 16,
-    );
+    TextStyle defaultTextStyle = txtStyle ??
+        const TextStyle(
+          fontSize: 16,
+        );
 
     List<Widget> widgets = [];
 
@@ -84,60 +83,55 @@ class CustomIconAndTextButton extends StatelessWidget {
   }
 }
 
-
-
-
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        hoverColor: Colors.transparent,
-        focusColor:  Colors.transparent,
+    Color dropDownColor = Theme.of(context).colorScheme.surface;
 
-      ),
-      child: DropdownButton<String>(
-          dropdownColor: Color.fromRGBO(0, 0, 0, 0.886),
-           
+    return Theme(
+        data: Theme.of(context).copyWith(
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+        ),
+        child: DropdownButton<String>(
+          dropdownColor:
+              Theme.of(context).colorScheme.primary.withOpacity(0.94),
+          elevation: 1,
           underline: Container(), // Remove underline
-          borderRadius: BorderRadius.circular(10.0), // Adiciona bordas arredondadas
-          
-          icon: const Padding(
-            padding: EdgeInsets.only(right: 55, left: 0),
-            child: Icon(Icons.translate, color: Colors.black),
+          borderRadius:
+              BorderRadius.circular(10.0), // Adiciona bordas arredondadas
+
+          icon: Padding(
+            padding: const EdgeInsets.only(right: 55, left: 0),
+            child: Icon(Icons.translate, color: Theme.of(context).primaryColor),
           ),
-          
-          items: const [
-             DropdownMenuItem<String>(
+
+          items: [
+            DropdownMenuItem<String>(
               value: 'en',
-              child: Text('English', style:  TextStyle(color: Colors.white54)),
+              child: Text('English', style: TextStyle(color: dropDownColor)),
             ),
             DropdownMenuItem<String>(
               value: 'th',
-              child: Text('ไทย', style:  TextStyle(color: Colors.white54)),
+              child: Text('ไทย', style: TextStyle(color: dropDownColor)),
             ),
             DropdownMenuItem<String>(
               value: 'pt',
-              child: Text('Português', style:  TextStyle(color: Colors.white54)),
+              child: Text('Português', style: TextStyle(color: dropDownColor)),
             ),
             DropdownMenuItem<String>(
               value: 'zh-cn',
-              child: Text('中文', style:  TextStyle(color: Colors.white54)),
+              child: Text('中文', style: TextStyle(color: dropDownColor)),
             ),
           ],
           onChanged: (String? newValue) {
             if (newValue != null) {
-              Provider.of<LanguageProvider>(context, listen: false).changeLanguage(newValue);
+              Provider.of<LanguageProvider>(context, listen: false)
+                  .changeLanguage(newValue);
             }
           },
-        
-      
-    ));
+        ));
   }
 }
-
-
-
-
