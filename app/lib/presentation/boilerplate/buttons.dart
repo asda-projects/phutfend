@@ -1,7 +1,7 @@
-import 'package:app/adapters/translation.dart';
-import 'package:app/utils/app_colors.dart';
-import 'package:app/boilerplate/text_fields.dart';
-import 'package:app/utils/navigation.dart';
+import 'package:app/data/adapters/translation.dart';
+
+import 'package:app/presentation/boilerplate/text_fields.dart';
+import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,10 +1,10 @@
-import 'package:app/boilerplate/buttons.dart';
-import 'package:app/utils/layouts.dart';
+import 'package:app/presentation/boilerplate/buttons.dart';
+import 'package:app/presentation/utils/layouts.dart';
 
-import 'package:app/boilerplate/text_fields.dart';
-import 'package:app/adapters/firestore.dart';
-import 'package:app/utils/navigation.dart';
-import 'package:app/utils/validation.dart';
+import 'package:app/presentation/boilerplate/text_fields.dart';
+import 'package:app/data/adapters/firestore.dart';
+
+import 'package:app/presentation/utils/validation.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {

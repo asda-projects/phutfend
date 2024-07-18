@@ -1,12 +1,12 @@
 // ignore: use_key_in_widget_constructors
 
-import 'package:app/boilerplate/assets.dart';
-import 'package:app/boilerplate/buttons.dart';
-import 'package:app/utils/layouts.dart';
+import 'package:app/presentation/boilerplate/assets.dart';
+import 'package:app/presentation/boilerplate/buttons.dart';
+import 'package:app/presentation/utils/layouts.dart';
 import 'package:app/settings/logs.dart';
-import 'package:app/utils/navigation.dart';
+import 'package:app/presentation/utils/navigation.dart';
 
-import 'package:app/widgets/home/preview_top5_stats.dart';
+import 'package:app/presentation/widgets/home/preview_top5_stats.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

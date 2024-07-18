@@ -1,8 +1,8 @@
-import 'package:app/adapters/translation.dart';
+import 'package:app/data/adapters/translation.dart';
 
-import 'package:app/utils/app_colors.dart';
+import 'package:app/presentation/utils/app_colors.dart';
 import 'package:app/settings/logs.dart';
-import 'package:app/widgets/home/home.dart';
+import 'package:app/presentation/widgets/home/home.dart';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';

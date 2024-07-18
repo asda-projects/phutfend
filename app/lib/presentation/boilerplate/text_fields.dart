@@ -1,5 +1,5 @@
-import 'package:app/adapters/translation.dart';
-import 'package:app/utils/validation.dart';
+import 'package:app/data/adapters/translation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
