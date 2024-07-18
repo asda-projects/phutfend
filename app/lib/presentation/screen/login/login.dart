@@ -1,15 +1,17 @@
+import 'package:app/domain/services/login_screen_deliver.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/utils/layouts.dart';
 
 import 'package:app/presentation/boilerplate/text_fields.dart';
-import 'package:app/data/adapters/firestore.dart';
 
 import 'package:app/presentation/utils/validation.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,9 @@ class LoginPage extends StatelessWidget {
                         CustomIconAndTextButton(
                           icon: Icons.arrow_forward_ios_sharp,
                           onPressed: () {
-                            UserFireBaseService().authUserByEmailPwd(
-                                emailController.text, passwordController.text);
+                            LoginScreenDeliver(emailController.text,
+                                    passwordController.text)
+                                .deliverScreen(context);
                           },
                           text: "Confirmar",
                           padding: const EdgeInsets.symmetric(

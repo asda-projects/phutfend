@@ -8,7 +8,9 @@ class UserFireBaseService {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      logger.debug('Signed in: ${userCredential.user}');
+      var user = userCredential.user;
+      logger.debug('Signed in: $user');
+      return user;
     } catch (e) {
       logger.debug('Failed to sign in: $e || $email, $password');
     }

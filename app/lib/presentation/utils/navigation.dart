@@ -1,11 +1,18 @@
+import 'package:app/presentation/screen/paths/student/student.dart';
+import 'package:app/presentation/screen/paths/teacher/teacher.dart';
 import 'package:app/settings/logs.dart';
-import 'package:app/presentation/widgets/paths/staff/staff.dart';
+import 'package:app/presentation/screen/paths/staff/staff.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/login/login.dart';
+import '../screen/login/login.dart';
 
 localPages(String pageName) {
-  var pages = {"Login": LoginPage(), "StaffMain": const StaffMainPage()};
+  var pages = {
+    "Login": LoginScreen(),
+    "StaffMain": const StaffMainScreen(),
+    "StudentMain": const StudentMainScreen(),
+    "TeacherMain": const TeacherMainScreen(),
+  };
   return pages[pageName];
 }
 
