@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Color backgroundC = Color.fromARGB(255, 29, 29, 29);
-
+    double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(actions: const [
         Padding(
@@ -27,7 +27,11 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topCenter,
-          height: MediaQuery.of(context).size.height,
+          height: sizeHeight <= 400
+              ? sizeHeight * 4
+              : sizeHeight <= 600
+                  ? sizeHeight * 1.5
+                  : sizeHeight,
           //media query
           decoration: BoxDecoration(
               gradient: LinearGradient(

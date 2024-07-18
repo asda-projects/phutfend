@@ -26,7 +26,7 @@ class CustomImage extends StatelessWidget {
 }
 
 AssetImage customAssetImagem(String assetName) {
-  return AssetImage("images/$assetName");
+  return AssetImage('assets/images/$assetName');
 }
 
 class CustomDecorationImage extends BoxDecoration {

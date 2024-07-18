@@ -1,12 +1,11 @@
 import 'package:app/utils/logs.dart';
+import 'package:app/widgets/paths/staff/staff.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/login/login.dart';
 
 localPages(String pageName) {
-  var pages = {
-    "Login": LoginPage(),
-  };
+  var pages = {"Login": LoginPage(), "StaffMain": const StaffMainPage()};
   return pages[pageName];
 }
 

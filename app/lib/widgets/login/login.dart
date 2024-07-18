@@ -1,6 +1,7 @@
 import 'package:app/boilerplate/buttons.dart';
 import 'package:app/boilerplate/forms.dart';
 import 'package:app/boilerplate/text_fields.dart';
+import 'package:app/utils/navigation.dart';
 import 'package:app/utils/validation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,37 +11,80 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double sizeHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(actions: const [
-        Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: LanguageSelector(reloadPage: true, pageName: "Login"))
-      ]),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            CustomTextFormField(
-              labelText: 'Email',
-              ifIsEmptyReturn: IfIsEmptyReturn.email,
-              onChanged: (value) {},
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              validator: textFormIsEmail,
-            ),
-            CustomTextFormField(
-              labelText: 'Password',
-              ifIsEmptyReturn: IfIsEmptyReturn.password,
-              onChanged: (value) {},
-              controller: passwordController,
-              obscureText: true,
-              validator: textFormIsPassword,
-            ),
-            // Add other form fields here
-          ],
-        ),
-      ),
-    );
+        appBar: AppBar(actions: const [
+          Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: LanguageSelector(reloadPage: true, pageName: "Login"))
+        ]),
+        body: SingleChildScrollView(
+            child: Container(
+                alignment: Alignment.topCenter,
+                height: sizeHeight <= 400
+                    ? sizeHeight * 4
+                    : sizeHeight <= 600
+                        ? sizeHeight * 1.5
+                        : sizeHeight,
+
+                //media query
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.surface,
+                    Theme.of(context).colorScheme.surface
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 190),
+                  child: Container(
+                    width: 270,
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomTextFormField(
+                          labelText: 'Email',
+                          ifIsEmptyReturn: IfIsEmptyReturn.email,
+                          onChanged: (value) {},
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: textFormIsEmail,
+                        ),
+                        CustomTextFormField(
+                          labelText: 'Password',
+                          ifIsEmptyReturn: IfIsEmptyReturn.password,
+                          onChanged: (value) {},
+                          controller: passwordController,
+                          obscureText: true,
+                          validator: textFormIsPassword,
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        CustomIconAndTextButton(
+                          icon: Icons.arrow_forward_ios_sharp,
+                          onPressed: () {
+                            navigateToPage(context, "StaffMain");
+                          },
+                          text: "Confirmar",
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 3),
+                          switchToColumn: false,
+                          btnStyle: defaultBtnStyle(
+                              context,
+                              const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15)),
+                        )
+                      ],
+                    ),
+                  ),
+                ))));
   }
 }
 
