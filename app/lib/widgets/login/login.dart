@@ -1,6 +1,7 @@
 import 'package:app/boilerplate/buttons.dart';
-import 'package:app/boilerplate/forms.dart';
+
 import 'package:app/boilerplate/text_fields.dart';
+import 'package:app/services/firestore.dart';
 import 'package:app/utils/navigation.dart';
 import 'package:app/utils/validation.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(actions: const [
           Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(right: 20),
               child: LanguageSelector(reloadPage: true, pageName: "Login"))
         ]),
         body: SingleChildScrollView(
@@ -70,7 +71,8 @@ class LoginPage extends StatelessWidget {
                         CustomIconAndTextButton(
                           icon: Icons.arrow_forward_ios_sharp,
                           onPressed: () {
-                            navigateToPage(context, "StaffMain");
+                            FirebaseService().authUserByEmailPwd(
+                                emailController.text, passwordController.text);
                           },
                           text: "Confirmar",
                           padding: const EdgeInsets.symmetric(

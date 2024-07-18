@@ -4,11 +4,11 @@ import 'package:app/boilerplate/assets.dart';
 import 'package:app/boilerplate/buttons.dart';
 import 'package:app/utils/logs.dart';
 import 'package:app/utils/navigation.dart';
-import 'package:app/boilerplate/text_fields.dart';
 
 import 'package:app/widgets/home/preview_top5_stats.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
   AppLogger logger = AppLogger();
 
@@ -20,9 +20,7 @@ class HomePage extends StatelessWidget {
     double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(actions: const [
-        Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: LanguageSelector())
+        Padding(padding: EdgeInsets.only(right: 20), child: LanguageSelector())
       ]),
       body: SingleChildScrollView(
         child: Container(

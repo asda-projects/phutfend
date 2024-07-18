@@ -1,1 +1,24 @@
-{"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"phut-322a4","configurations":{"web":"1:800686089392:web:4dd9c2d4bb321720ca0775"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "phut-322a4",
+          "configurations": {
+            "web": "1:800686089392:web:4dd9c2d4bb321720ca0775"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "ui": {
+      "enabled": true,
+      "port": 9098
+    },
+    "singleProjectMode": true
+  }
+}
