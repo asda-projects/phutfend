@@ -2,7 +2,8 @@
 
 import 'package:app/boilerplate/assets.dart';
 import 'package:app/boilerplate/buttons.dart';
-import 'package:app/utils/logs.dart';
+import 'package:app/utils/layouts.dart';
+import 'package:app/settings/logs.dart';
 import 'package:app/utils/navigation.dart';
 
 import 'package:app/widgets/home/preview_top5_stats.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Color backgroundC = Color.fromARGB(255, 29, 29, 29);
-    double sizeHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(actions: const [
         Padding(padding: EdgeInsets.only(right: 20), child: LanguageSelector())
@@ -25,11 +26,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topCenter,
-          height: sizeHeight <= 400
-              ? sizeHeight * 4
-              : sizeHeight <= 600
-                  ? sizeHeight * 1.5
-                  : sizeHeight,
+          height: Layouts.adjustHeight(context, 1),
           //media query
           decoration: BoxDecoration(
               gradient: LinearGradient(

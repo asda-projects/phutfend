@@ -1,4 +1,4 @@
-import 'package:app/services/translation.dart';
+import 'package:app/adapters/translation.dart';
 import 'package:app/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

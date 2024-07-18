@@ -1,4 +1,4 @@
-import 'package:app/services/translation.dart';
+import 'package:app/adapters/translation.dart';
 import 'package:app/utils/app_colors.dart';
 import 'package:app/boilerplate/text_fields.dart';
 import 'package:app/utils/navigation.dart';

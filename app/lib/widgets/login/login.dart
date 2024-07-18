@@ -1,7 +1,8 @@
 import 'package:app/boilerplate/buttons.dart';
+import 'package:app/utils/layouts.dart';
 
 import 'package:app/boilerplate/text_fields.dart';
-import 'package:app/services/firestore.dart';
+import 'package:app/adapters/firestore.dart';
 import 'package:app/utils/navigation.dart';
 import 'package:app/utils/validation.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double sizeHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
         appBar: AppBar(actions: const [
           Padding(
@@ -23,12 +22,7 @@ class LoginPage extends StatelessWidget {
         body: SingleChildScrollView(
             child: Container(
                 alignment: Alignment.topCenter,
-                height: sizeHeight <= 400
-                    ? sizeHeight * 4
-                    : sizeHeight <= 600
-                        ? sizeHeight * 1.5
-                        : sizeHeight,
-
+                height: Layouts.adjustHeight(context, 1),
                 //media query
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -71,7 +65,7 @@ class LoginPage extends StatelessWidget {
                         CustomIconAndTextButton(
                           icon: Icons.arrow_forward_ios_sharp,
                           onPressed: () {
-                            FirebaseService().authUserByEmailPwd(
+                            UserFireBaseService().authUserByEmailPwd(
                                 emailController.text, passwordController.text);
                           },
                           text: "Confirmar",

@@ -1,4 +1,4 @@
-import 'package:app/utils/logs.dart';
+import 'package:app/settings/logs.dart';
 import 'package:app/widgets/paths/staff/staff.dart';
 import 'package:flutter/material.dart';
 
