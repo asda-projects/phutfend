@@ -1,11 +1,10 @@
-import 'package:app/data/adapters/firebase/errors_handling.dart';
 import 'package:app/data/adapters/firebase/firestore.dart';
 import 'package:app/domain/utils/maps.dart';
 import 'package:app/domain/utils/strings.dart';
 import 'package:app/presentation/boilerplate/dialogs.dart';
 import 'package:app/presentation/utils/navigation.dart';
 import 'package:app/settings/logs.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/widgets.dart';
 
 AppLogger logger = AppLogger();
@@ -20,36 +19,33 @@ class LoginScreenDeliver {
   Future<void> deliverScreen(BuildContext context) async {
     // there is not way if user exist do not have the attribute role
     // must be assured when create a user, role is required for all
-    try {
-      // try to autheticate user if not return null
-      var user = await userService.authUserByEmailPwd(email, password);
 
-      // if is null then return empty map {}, otherwise return the user data
-      var userCustomClaims = await userService.getCustomClaims(user);
+    // try to autheticate user if not return null
+    var authResponse = await userService.authUserByEmailPwd(email, password);
 
-      // get a specific value from a map based on the key if its exists there
-      var rolePosition = getValue(userCustomClaims, "role");
-      if (context.mounted) {
-        // before to push to another page from async func check if is mounted
+    if (context.mounted) {
+      var handledAuthResponse =
+          await userService.handleAuthResult(context, authResponse);
 
-        mapDeliverage(context, rolePosition);
+      var error = handledAuthResponse["error"];
+      var response = handledAuthResponse["response"];
+
+      if (error == true) {
+        if (context.mounted) showErrorDialog(context, "Error", response);
       }
-    } on FirebaseAuthException catch (e) {
-      logger.debug('FirebaseAuthException: ${e.message}');
-      String errorMessage = AuthErrorHandling.getErrorMessage(e.code);
-      if (context.mounted) {
-        showErrorDialog(context, 'Authentication Error', errorMessage);
-      }
-    } catch (e) {
-      logger.debug('Unexpected Error: $e');
-      if (context.mounted) {
-        showErrorDialog(context, 'Error',
-            'An unexpected error occurred. Please try again later.');
-      }
+
+      var customClaim = await userService.getCustomClaims(response);
+
+      var rolePosition = getValue(customClaim, "role");
+
+      if (context.mounted) mapDeliverage(context, rolePosition);
     }
   }
 
-  void mapDeliverage(BuildContext context, String rolePosition) {
+  void mapDeliverage(
+    BuildContext context,
+    String rolePosition,
+  ) {
     /**
    * case 1 = staff return navigateToPage(context, StaffMain)
    * case 2 = student return navigateToPage(context, StudentMain)
