@@ -1,7 +1,7 @@
 import 'package:app/presentation/screen/paths/student/student.dart';
 import 'package:app/presentation/screen/paths/teacher/teacher.dart';
 import 'package:app/settings/logs.dart';
-import 'package:app/presentation/screen/paths/staff/staff.dart';
+import 'package:app/presentation/screen/paths/staff/staff_main_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screen/login/login.dart';

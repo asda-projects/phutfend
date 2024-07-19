@@ -13,7 +13,7 @@ class UserFireBaseService {
           .signInWithEmailAndPassword(email: email, password: password);
       var user = userCredential.user;
       logger.debug('Signed in...');
-      return {'user': user};
+      return {'response': user};
     } on FirebaseAuthException catch (e) {
       logger.debug('Failed to sign in: ${e.code} || $email, $password');
       return {'errorCode': e.code};
@@ -34,15 +34,16 @@ class UserFireBaseService {
   handleAuthResult(
       BuildContext context, Map resultFromAuthUserByEmailPwd) async {
     if (resultFromAuthUserByEmailPwd.containsKey('errorCode')) {
-      logger.debug("Auth Result $resultFromAuthUserByEmailPwd");
+      logger.debug("Auth Result ${resultFromAuthUserByEmailPwd['errorCode']}");
       return {
         "error": true,
         "response": AuthErrorHandling.getErrorMessage(
             resultFromAuthUserByEmailPwd['errorCode'])
       };
-    } else if (resultFromAuthUserByEmailPwd.containsKey('user')) {
+    } else if (resultFromAuthUserByEmailPwd.containsKey('response')) {
       // User is authenticated, get custom claims
-      return {"error": false, "response": resultFromAuthUserByEmailPwd["user"]};
+      resultFromAuthUserByEmailPwd['error'] = false;
+      return resultFromAuthUserByEmailPwd;
     }
   }
 }

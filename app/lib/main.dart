@@ -1,4 +1,5 @@
 import 'package:app/app.dart';
+
 import 'package:app/settings/environment_variables.dart';
 import 'package:app/settings/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
