@@ -29,24 +29,6 @@ AssetImage customAssetImagem(String assetName) {
   return AssetImage('assets/images/$assetName');
 }
 
-class CustomDecorationImage extends BoxDecoration {
-  final String assetName;
-  final Alignment alignment;
-  final BoxFit? fit;
-
-  CustomDecorationImage({
-    required this.assetName,
-    required this.alignment,
-    this.fit,
-  }) : super(
-          image: DecorationImage(
-              image: customAssetImagem(assetName),
-              alignment: alignment,
-              filterQuality: FilterQuality.high,
-              fit: fit),
-        );
-}
-
 class CustomBackgroundImage extends StatelessWidget {
   final String assetName;
   final Alignment alignment;
@@ -54,9 +36,9 @@ class CustomBackgroundImage extends StatelessWidget {
   final double? screenHeight;
   final List<Widget>? widgets;
   final double blurStrength;
-  final bool staticImgSize;
   final BoxFit? fit;
   final dynamic stackFit;
+  
 
   const CustomBackgroundImage(
       {super.key,
@@ -68,26 +50,28 @@ class CustomBackgroundImage extends StatelessWidget {
       this.fit,
       this.stackFit = StackFit.loose,
       this.blurStrength = 5.0,
-      this.staticImgSize = true});
+      }); // Default rotation angle is 0
 
   @override
   Widget build(BuildContext context) {
     List<Widget> defaultList = [
       Container(
-        width: staticImgSize ? 700 : screenWidth,
-        height: staticImgSize ? 700 : screenHeight,
+        width: screenWidth,
+        height: screenHeight,
         decoration: CustomDecorationImage(
-            assetName: assetName, alignment: alignment, fit: fit),
+          assetName: assetName,
+          alignment: alignment,
+          fit: fit,
+        ),
       ),
       Positioned.fill(
         child: BackdropFilter(
-          filter:
-              ui.ImageFilter.blur(sigmaX: blurStrength, sigmaY: blurStrength),
+          filter: ui.ImageFilter.blur(sigmaX: blurStrength, sigmaY: blurStrength),
           child: Container(
             color: Colors.transparent,
           ),
         ),
-      )
+      ),
     ];
 
     List<Widget> fullList;
@@ -99,9 +83,26 @@ class CustomBackgroundImage extends StatelessWidget {
     }
 
     return Stack(
-      fit: stackFit,
-      alignment: Alignment.center,
-      children: fullList,
+        fit: stackFit,
+        alignment: Alignment.center,
+        children: fullList,
+      
     );
   }
+}
+
+class CustomDecorationImage extends BoxDecoration {
+  final String assetName;
+  final Alignment alignment;
+  final BoxFit? fit;
+
+  CustomDecorationImage(
+      {required this.assetName, required this.alignment, this.fit})
+      : super(
+          image: DecorationImage(
+            image: customAssetImagem(assetName),
+            alignment: alignment,
+            fit: fit,
+          ),
+        );
 }

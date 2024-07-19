@@ -1,3 +1,4 @@
+import 'package:app/data/adapters/firebase/firestore.dart';
 import 'package:app/data/adapters/translation.dart';
 
 import 'package:app/presentation/boilerplate/text_fields.dart';
@@ -88,7 +89,8 @@ class CustomIconAndTextButton extends StatelessWidget {
 class LanguageSelector extends StatelessWidget {
   final bool reloadPage;
   final String? pageName;
-  const LanguageSelector({super.key, this.reloadPage = false, this.pageName});
+  final Color? iconColor;
+  const LanguageSelector({super.key, this.reloadPage = false, this.pageName, this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,7 @@ class LanguageSelector extends StatelessWidget {
 
           icon: Padding(
             padding: const EdgeInsets.only(right: 55, left: 0),
-            child: Icon(Icons.translate, color: Theme.of(context).primaryColor),
+            child: Icon(Icons.translate, color: iconColor ?? Theme.of(context).primaryColor),
           ),
 
           items: [
@@ -220,25 +222,45 @@ void _cacheTranslations() async {
   }
 }
 
+
+  double adjustHeightOverlay(double screenSizeHeight ) {
+    logger.debug("screenSizeHeight: $screenSizeHeight");
+    
+    if (screenSizeHeight >= 830) {
+      
+      return  screenSizeHeight * 0.12;
+    }
+
+    return screenSizeHeight * 0.17;
+
+  }
+
   OverlayEntry _createOverlayEntry() {
   RenderBox renderBox = context.findRenderObject() as RenderBox;
   var size = renderBox.size;
   var offset = renderBox.localToGlobal(Offset.zero);
+  var screenSize = MediaQuery.of(context).size;
+
+
+  
 
   return OverlayEntry(
+
     builder: (context) => GestureDetector(
+      behavior:  HitTestBehavior.translucent,
       onTap: _removeOverlay, // Close overlay when tapping outside
-      behavior: HitTestBehavior.translucent,
+      // behavior: HitTestBehavior.translucent,
       child: Stack(
         children: [
           Positioned(
             left: offset.dx - 65,
-            top: offset.dy - size.height - 100,
+            top: offset.dy - size.height - adjustHeightOverlay(screenSize.height),
             width: size.width + 140,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Material(
-                // color: Colors.transparent, // Make the material transparent
+                
+                color: Colors.black, // Make the material transparent
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: widget.childrensOverlayEntry.map((child) {
@@ -284,6 +306,7 @@ void _cacheTranslations() async {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       shape: const CircleBorder(eccentricity: 0.3),
       onPressed: _toggleDropdown,
       child: Icon(widget.floatingBtnIcon),

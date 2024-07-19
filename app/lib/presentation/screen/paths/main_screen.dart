@@ -28,6 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: widget.appBar,
       body: widget.body,
       floatingActionButton:  DropDownFloatingActionButton(
@@ -35,6 +36,7 @@ class _MainScreenState extends State<MainScreen> {
         childrensOverlayEntry: widget.childrensOverlayEntry,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.onTertiary,
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         child: Row(
