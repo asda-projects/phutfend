@@ -1,19 +1,21 @@
+import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   final PreferredSizeWidget? appBar;
   final Widget? body;
   final IconData? floatingBtnIcon;
-  final void Function()? floatingBtnOnPressed;
   final List<Widget> childrenWidgets;
+  final List<Widget> childrensOverlayEntry;
+
 
   const MainScreen({
     super.key,
     this.appBar,
     this.body,
     this.floatingBtnIcon,
-    required this.floatingBtnOnPressed,
-    required this.childrenWidgets,
+    required this.childrenWidgets, 
+    required this.childrensOverlayEntry,
   });
 
   @override
@@ -24,14 +26,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: widget.appBar,
       body: widget.body,
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(eccentricity: 0.3),
-        onPressed: widget.floatingBtnOnPressed,
-        child: Icon(widget.floatingBtnIcon),
-      ),
+      floatingActionButton:  DropDownFloatingActionButton(
+        floatingBtnIcon: widget.floatingBtnIcon, 
+        childrensOverlayEntry: widget.childrensOverlayEntry,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -45,3 +46,27 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+/**
+ * [
+              ListTile(
+                title:
+                    TranslatableText('Adicionar Professor', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddTeacher');
+                },
+              ),
+              ListTile(
+                title: TranslatableText('Adicionar Aluno', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddStudent');
+                },
+              ),
+              ListTile(
+                title: TranslatableText('Adicionar Frase', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddPhrase');
+                },
+              ),
+            ]
+ */

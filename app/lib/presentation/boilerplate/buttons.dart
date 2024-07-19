@@ -158,52 +158,135 @@ class LanguageSelector extends StatelessWidget {
   }
 }
 
-class AddDropDownButton extends StatefulWidget {
-  const AddDropDownButton({Key? key}) : super(key: key);
+class DropDownFloatingActionButton extends StatefulWidget {
+  final IconData? floatingBtnIcon;
+  final List<Widget> childrensOverlayEntry;
+
+  const DropDownFloatingActionButton({
+    super.key,
+    required this.floatingBtnIcon,
+    required this.childrensOverlayEntry,
+  });
 
   @override
-  _AddDropDownButtonState createState() => _AddDropDownButtonState();
+  _DropDownFloatingActionButtonState createState() =>
+      _DropDownFloatingActionButtonState();
 }
 
-class _AddDropDownButtonState extends State<AddDropDownButton> {
-  String? _selectedPage;
+class _DropDownFloatingActionButtonState
+    extends State<DropDownFloatingActionButton> with WidgetsBindingObserver {
+  OverlayEntry? _overlayEntry;
+  final Map<String, String> _translations = {};
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _cacheTranslations();
+     Provider.of<LanguageProvider>(context, listen: false).addListener(_cacheTranslations);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // Remove listener when disposing
+    Provider.of<LanguageProvider>(context, listen: false).removeListener(_cacheTranslations);
+    _removeOverlay();
+    super.dispose();
+  }
+
+  void _toggleDropdown() {
+    if (_overlayEntry == null) {
+      _overlayEntry = _createOverlayEntry();
+      Overlay.of(context).insert(_overlayEntry!);
+    } else {
+      _removeOverlay();
+    }
+  }
+
+void _cacheTranslations() async {
+  final languageCode =
+      Provider.of<LanguageProvider>(context, listen: false).languageCode;
+  for (var child in widget.childrensOverlayEntry) {
+    if (child is ListTile && child.title is TranslatableText) {
+      TranslatableText translatableText = child.title as TranslatableText;
+      // Always re-translate if the language code changes
+      String translation = await TranslationService()
+          .translateText(translatableText.text, languageCode);
+      setState(() {
+        _translations[translatableText.text] = translation;
+      });
+    }
+  }
+}
+
+  OverlayEntry _createOverlayEntry() {
+  RenderBox renderBox = context.findRenderObject() as RenderBox;
+  var size = renderBox.size;
+  var offset = renderBox.localToGlobal(Offset.zero);
+
+  return OverlayEntry(
+    builder: (context) => GestureDetector(
+      onTap: _removeOverlay, // Close overlay when tapping outside
+      behavior: HitTestBehavior.translucent,
+      child: Stack(
+        children: [
+          Positioned(
+            left: offset.dx - 65,
+            top: offset.dy - size.height - 100,
+            width: size.width + 140,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Material(
+                // color: Colors.transparent, // Make the material transparent
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: widget.childrensOverlayEntry.map((child) {
+                    if (child is ListTile && child.title is TranslatableText) {
+                      TranslatableText translatableText =
+                          child.title as TranslatableText;
+                      return ListTile(
+                        title: Text(_translations[translatableText.text] ??
+                            translatableText.text),
+                        onTap: () {
+                          if (child.onTap != null) {
+                            child.onTap!();
+                          }
+                          _removeOverlay();
+                        },
+                      );
+                    } else {
+                      return child;
+                    }
+                  }).toList(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  @override
+  void didChangeMetrics() {
+    _removeOverlay();
+    super.didChangeMetrics();
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle defaultTextStyle = TextStyle(
-        fontSize: 14,
-        fontFamily: "Tahoma",
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold);
-
-    return Theme(
-      data: Theme.of(context).copyWith(
-        hoverColor: Colors.transparent,
-        focusColor: Colors.transparent,
-      ),
-      child: DropdownButton<String>(
-        // hint: TranslatableText("", defaultTextStyle),
-        value: _selectedPage,
-        onChanged: (String? newValue) {
-          setState(() {
-            _selectedPage = newValue;
-            // Call your external navigateToPage function here
-            if (_selectedPage != null) {
-              navigateToPage(context, _selectedPage!);
-            }
-          });
-        },
-        items: [
-          'Adicionar Professor',
-          'Adicionar Aluno',
-          'Adicionar Frase',
-        ].map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: TranslatableText(value, defaultTextStyle),
-          );
-        }).toList(),
-      ),
+    return FloatingActionButton(
+      shape: const CircleBorder(eccentricity: 0.3),
+      onPressed: _toggleDropdown,
+      child: Icon(widget.floatingBtnIcon),
     );
   }
 }

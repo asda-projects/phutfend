@@ -2,6 +2,7 @@ import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
 
 import 'package:app/presentation/screen/paths/main_screen.dart';
+import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
 
 class StaffMainScreen extends StatefulWidget {
@@ -15,6 +16,17 @@ class StaffMainScreen extends StatefulWidget {
 class _StaffMainScreenState extends State<StaffMainScreen> {
   @override
   Widget build(BuildContext context) {
+
+
+
+    TextStyle defaultTextStyle = TextStyle(
+        fontSize: 14,
+        fontFamily: "Tahoma",
+        color: Theme.of(context).colorScheme.primary,
+        );
+
+
+
     return MainScreen(
         appBar: AppBar(actions: [
           Padding(
@@ -32,9 +44,6 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
               padding: EdgeInsets.only(right: 20), child: LanguageSelector())
         ]),
         floatingBtnIcon: Icons.add,
-        floatingBtnOnPressed: () {
-          // Add your onPressed code here!
-        },
         body: Center(
             child: TranslatableText(
           "Content goes here!",
@@ -57,7 +66,27 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
               // Add your onPressed code here!
             },
           ),
-        ]);
+        ], childrensOverlayEntry: [
+              ListTile(
+                title:
+                    TranslatableText('Adicionar professor', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddTeacher');
+                },
+              ),
+              ListTile(
+                title: TranslatableText('Adicionar aluno', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddStudent');
+                },
+              ),
+              ListTile(
+                title: TranslatableText('Adicionar frase', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddPhrase');
+                },
+              ),
+            ],);
   }
 }
 
