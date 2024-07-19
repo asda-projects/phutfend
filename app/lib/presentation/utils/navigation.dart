@@ -4,7 +4,7 @@ import 'package:app/presentation/screen/paths/staff/add_teacher/staff_add_teache
 import 'package:app/presentation/screen/paths/student/student_main_screen.dart';
 import 'package:app/presentation/screen/paths/teacher/teacher_main_screen.dart';
 import 'package:app/settings/logs.dart';
-import 'package:app/presentation/screen/paths/staff/dash/staff_main_screen.dart';
+import 'package:app/presentation/screen/paths/staff/main/staff_main_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screen/login/login.dart';
