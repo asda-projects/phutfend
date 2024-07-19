@@ -157,3 +157,53 @@ class LanguageSelector extends StatelessWidget {
         ));
   }
 }
+
+class AddDropDownButton extends StatefulWidget {
+  const AddDropDownButton({Key? key}) : super(key: key);
+
+  @override
+  _AddDropDownButtonState createState() => _AddDropDownButtonState();
+}
+
+class _AddDropDownButtonState extends State<AddDropDownButton> {
+  String? _selectedPage;
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle defaultTextStyle = TextStyle(
+        fontSize: 14,
+        fontFamily: "Tahoma",
+        color: Theme.of(context).colorScheme.primary,
+        fontWeight: FontWeight.bold);
+
+    return Theme(
+      data: Theme.of(context).copyWith(
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
+      ),
+      child: DropdownButton<String>(
+        // hint: TranslatableText("", defaultTextStyle),
+        value: _selectedPage,
+        onChanged: (String? newValue) {
+          setState(() {
+            _selectedPage = newValue;
+            // Call your external navigateToPage function here
+            if (_selectedPage != null) {
+              navigateToPage(context, _selectedPage!);
+            }
+          });
+        },
+        items: [
+          'Adicionar Professor',
+          'Adicionar Aluno',
+          'Adicionar Frase',
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: TranslatableText(value, defaultTextStyle),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}

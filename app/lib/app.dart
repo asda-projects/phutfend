@@ -1,5 +1,4 @@
 import 'package:app/data/adapters/translation.dart';
-import 'package:app/presentation/screen/paths/staff/staff_main_screen.dart';
 
 import 'package:app/presentation/utils/app_colors.dart';
 import 'package:app/settings/logs.dart';
@@ -33,6 +32,8 @@ class _AppState extends State<App> {
             theme: lightTheme, // Default to light theme
             darkTheme: darkTheme, // Dark theme
             themeMode: ThemeMode.system,
-            home: const StaffMainScreen()));
+            home: Container(
+              child: Text("AAAAAA"),
+            )));
   }
 }
