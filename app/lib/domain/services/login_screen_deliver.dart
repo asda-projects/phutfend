@@ -1,5 +1,7 @@
+import 'package:app/data/adapters/firebase/auth.dart';
 import 'package:app/data/adapters/firebase/firestore.dart';
-import 'package:app/domain/utils/maps.dart';
+import 'package:app/domain/services/crud_users.dart';
+
 import 'package:app/domain/utils/strings.dart';
 import 'package:app/presentation/boilerplate/dialogs.dart';
 import 'package:app/presentation/utils/navigation.dart';
@@ -13,39 +15,38 @@ class LoginScreenDeliver {
   final String email;
   final String password;
   final userService = UserFireBaseService();
+  final authUser = AuthUser();
 
   LoginScreenDeliver(this.email, this.password);
 
   Future<void> deliverScreen(BuildContext context) async {
-    // there is not way if user exist do not have the attribute role
-    // must be assured when create a user, role is required for all
 
-    // try to autheticate user if not return null
-    var authResponse = await userService.authUserByEmailPwd(email, password);
+    
+    AuthResponse authResponse = await authUser.byEmailPwd(email, password);
 
-    if (context.mounted) {
-      var handledAuthResponse =
-          await userService.handleAuthResult(context, authResponse);
+    if(context.mounted) {
 
-      var error = handledAuthResponse["error"];
-      var response = handledAuthResponse["response"];
+      if (authResponse.error == true) {
+        
+        showErrorDialog(context, "Error", authResponse.responseStatus);
 
-      if (error == true) {
-        if (context.mounted) showErrorDialog(context, "Error", response);
       }
 
-      var customClaim = await userService.getCustomClaims(response);
+      CrudUsers currentUser = CrudUsers(currentUser: authResponse.user);
 
-      var rolePosition = getValue(customClaim, "role");
+      Map<String, dynamic> customClaim = await currentUser.getCustomClaimsFromCurrentUser();
+
+      String rolePosition = customClaim["role"]!;
 
       if (context.mounted) mapDeliverage(context, rolePosition);
+
     }
+
   }
 
-  void mapDeliverage(
-    BuildContext context,
-    String rolePosition,
-  ) {
+  
+
+  void mapDeliverage(BuildContext context, String rolePosition) {
     /**
    * case 1 = staff return navigateToPage(context, StaffMain)
    * case 2 = student return navigateToPage(context, StudentMain)
@@ -72,3 +73,32 @@ class LoginScreenDeliver {
     }
   }
 }
+
+
+/**
+ * Future<void> deliverScreen(BuildContext context) async {
+    // there is not way if user exist do not have the attribute role
+    // must be assured when create a user, role is required for all
+
+    // try to autheticate user if not return null
+    var authResponse = await userService.authUserByEmailPwd(email, password);
+
+    if (context.mounted) {
+      var handledAuthResponse =
+          await userService.handleAuthResult(context, authResponse);
+
+      var error = handledAuthResponse["error"];
+      var response = handledAuthResponse["response"];
+
+      if (error == true) {
+        if (context.mounted) showErrorDialog(context, "Error", response);
+      }
+
+      var customClaim = await userService.getCustomClaims(response);
+
+      var rolePosition = getValueFromMap(customClaim, "role");
+
+      if (context.mounted) mapDeliverage(context, rolePosition);
+    }
+  }
+ */

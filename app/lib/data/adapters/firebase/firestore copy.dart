@@ -15,44 +15,11 @@ class UserFireBaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAdmin _admin = FirebaseAdmin.instance;
   
-  Future<Map> authUserByEmailPwd(String email, String password) async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      var user = userCredential.user;
-      logger.debug('Signed in...');
-      return {'response': user};
-    } on FirebaseAuthException catch (e) {
-      logger.debug('Failed to sign in: ${e.code} || $email, $password');
-      return {'errorCode': e.code};
-    } catch (e) {
-      logger.debug('Failed to sign in: $e || $email, $password');
-      return {'errorCode': 'unknown'};
-    }
-  }
 
-  getCustomClaims(User? user) async {
-    if (user != null) {
-      IdTokenResult idTokenResult = await user.getIdTokenResult(true);
-      return idTokenResult.claims ?? {};
-    }
-    return {};
-  }
 
-  handleAuthResult(
-      BuildContext context, Map resultFromAuthUserByEmailPwd) async {
-    if (resultFromAuthUserByEmailPwd.containsKey('errorCode')) {
-      logger.debug("Auth Result ${resultFromAuthUserByEmailPwd['errorCode']}");
-      return {
-        "error": true,
-        "response": AuthErrorHandling.getErrorMessage(
-            resultFromAuthUserByEmailPwd['errorCode'])
-      };
-    } else if (resultFromAuthUserByEmailPwd.containsKey('response')) {
-      // User is authenticated, get custom claims
-      resultFromAuthUserByEmailPwd['error'] = false;
-      return resultFromAuthUserByEmailPwd;
-    }
-  }
+
+
+
   Future<Map> createUserByEmailPwd(String email, String password, String role, User currentUser, {Map<String, dynamic>? additionalClaims}) async {
     // Validate if the current user has staff role
     var validationResult = await validateStaffRole(currentUser);
