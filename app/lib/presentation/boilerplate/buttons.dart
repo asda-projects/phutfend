@@ -1,4 +1,4 @@
-import 'package:app/data/adapters/firebase/firestore.dart';
+
 import 'package:app/data/adapters/translation.dart';
 
 import 'package:app/presentation/boilerplate/text_fields.dart';
@@ -224,7 +224,7 @@ void _cacheTranslations() async {
 
 
   double adjustHeightOverlay(double screenSizeHeight ) {
-    logger.debug("screenSizeHeight: $screenSizeHeight");
+    
     
     if (screenSizeHeight >= 830) {
       

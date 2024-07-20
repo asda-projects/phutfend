@@ -17,6 +17,7 @@ class CrudUsers {
   // so or will return User instance or null
   // it need to come as userCredential.user
   final String collectionName = 'users_custom_claims';
+  //l4kKS28eiK4VjG5jhKK2cOtYOLvD
   final User? currentUser;
   final AuthUser _authUser = AuthUser();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

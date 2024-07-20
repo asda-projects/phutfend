@@ -1,3 +1,6 @@
+// ignore: dangling_library_doc_comments
+/**
+
 import 'package:app/data/adapters/firebase/errors_handling.dart';
 
 
@@ -159,3 +162,4 @@ class UserFireBaseService {
     return {'error': false};
   }
 }
+ */

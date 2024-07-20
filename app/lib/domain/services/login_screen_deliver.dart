@@ -1,5 +1,5 @@
 import 'package:app/data/adapters/firebase/auth.dart';
-import 'package:app/data/adapters/firebase/firestore.dart';
+
 import 'package:app/domain/services/crud_users.dart';
 
 import 'package:app/domain/utils/strings.dart';
@@ -14,7 +14,7 @@ AppLogger logger = AppLogger();
 class LoginScreenDeliver {
   final String email;
   final String password;
-  final userService = UserFireBaseService();
+  
   final authUser = AuthUser();
 
   LoginScreenDeliver(this.email, this.password);
