@@ -1,4 +1,5 @@
 import 'package:app/presentation/boilerplate/buttons.dart';
+import 'package:app/presentation/utils/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class StaffAddStudentScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class StaffAddStudentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(actions: const [
+      appBar: OverflowAppBar(actions: const [
            Padding(
               padding: EdgeInsets.only(right: 20), child: LanguageSelector())
         ],

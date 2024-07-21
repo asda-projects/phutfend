@@ -89,4 +89,8 @@ class Layouts {
       return sizeWidth * LayoutConstants.largeWidthMultiplier * value;
     }
   }
+
+
+
+
 }

@@ -29,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      
       appBar: widget.appBar,
       body: widget.body,
       floatingActionButton:  DropDownFloatingActionButton(

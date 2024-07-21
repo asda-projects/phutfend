@@ -1,11 +1,15 @@
 import 'package:app/presentation/boilerplate/assets.dart';
+import 'package:app/presentation/boilerplate/body.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
 
 import 'package:app/presentation/screen/paths/main_screen.dart';
-import 'package:app/presentation/utils/layouts.dart';
+import 'package:app/presentation/utils/app_bar.dart';
+
 import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
+
+
 
 class StaffMainScreen extends StatefulWidget {
   const StaffMainScreen({super.key});
@@ -21,6 +25,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
 
 
 
+
     TextStyle defaultTextStyle = TextStyle(
         fontSize: 14,
         fontFamily: "Tahoma",
@@ -28,9 +33,8 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         );
 
 
-
     return MainScreen(
-        appBar: AppBar(
+        appBar: OverflowAppBar(
           automaticallyImplyLeading: false,
           backgroundColor:  Theme.of(context).colorScheme.onTertiary,
           actions: const [
@@ -50,45 +54,40 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         ]),
         floatingBtnIcon: Icons.add,
         body: 
-            SingleChildScrollView(
-        child: SizedBox(
-          height: Layouts.adjustHeight(context, 0.80),
-         child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+        
+        ResponsiveContent(body: Column(
+                
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                   const Center(
+                    child: CustomBackgroundImage(
+                      assetName: "staff_main_screen.png",
+                      alignment: Alignment.topCenter,
+                      screenHeight: 400,
+                      screenWidth: 600,
+                      blurStrength: 0.07,
+                      widgets: [],
+                    ),
+                  ),
+                  TranslatableText(
+                    "Is not showing any information?",
+                    TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TranslatableText(
+                    "Click on Add button!",
+                    TextStyle(
+                      fontSize: 14,
+                      fontFamily: "Raleway",
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ],
+              )),
               
-              child:SizedBox(
-          width: Layouts.adjustWidth(context, 1),
-         child:  Column(
-              
-              
-              children: [ 
-                const Center(
-                  child:  CustomBackgroundImage(
-                  assetName: "staff_main_screen.png", 
-                  alignment: Alignment.bottomCenter,
-                  screenHeight: 400,
-                  screenWidth: 600,
-                  
-                  blurStrength: 0.07,
-              widgets: []
-                )),
-                      TranslatableText( 
-                        "Is not showing any information?",
-          TextStyle(
-              fontSize: 16,
-              fontFamily: "Raleway",
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold),
-        ),
-        TranslatableText( 
-                        "Click on Add button!",
-          TextStyle(
-              fontSize: 14,
-              fontFamily: "Raleway",
-              color: Theme.of(context).colorScheme.primary,
-              
-        ))
-                      ]))))),
         childrenWidgets: <Widget>[
           IconButton(
             icon: const Icon(Icons.menu),

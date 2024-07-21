@@ -1,5 +1,6 @@
 import 'package:app/domain/services/login_screen_deliver.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
+import 'package:app/presentation/utils/app_bar.dart';
 import 'package:app/presentation/utils/layouts.dart';
 
 import 'package:app/presentation/boilerplate/text_fields.dart';
@@ -16,7 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(actions: const [
+        appBar: const OverflowAppBar(actions: [
           Padding(
               padding: EdgeInsets.only(right: 20),
               child: LanguageSelector(reloadPage: true, pageName: "Login"))
