@@ -3,6 +3,7 @@ import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
 
 import 'package:app/presentation/screen/paths/main_screen.dart';
+import 'package:app/presentation/utils/layouts.dart';
 import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,16 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         floatingBtnIcon: Icons.add,
         body: 
             SingleChildScrollView(
-        child: Column(
+        child: SizedBox(
+          height: Layouts.adjustHeight(context, 0.80),
+         child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               
-              mainAxisSize: MainAxisSize.min,
+              child:SizedBox(
+          width: Layouts.adjustWidth(context, 1),
+         child:  Column(
+              
+              
               children: [ 
                 const Center(
                   child:  CustomBackgroundImage(
@@ -80,7 +88,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
               color: Theme.of(context).colorScheme.primary,
               
         ))
-                      ])),
+                      ]))))),
         childrenWidgets: <Widget>[
           IconButton(
             icon: const Icon(Icons.menu),

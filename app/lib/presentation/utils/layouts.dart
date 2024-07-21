@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class LayoutConstants {
@@ -61,9 +62,12 @@ class LayoutConstants {
 }
 
 class Layouts {
+
+  //  AppLogger logger = AppLogger();
   // Method to adjust size based on screen height
   static double adjustHeight(BuildContext context, double value) {
     double sizeHeight = MediaQuery.of(context).size.height;
+
 
     if (sizeHeight <= LayoutConstants.smallHeightConstant) {
       return sizeHeight * LayoutConstants.smallHeightMultiplier * value;

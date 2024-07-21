@@ -29,3 +29,15 @@ class LanguageProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
+Future<String> getCachedTranslation(BuildContext context,String text, Map translationsCache) async {
+    final languageCode = Provider.of<LanguageProvider>(context, listen: false).languageCode;
+    final cacheKey = '$text-$languageCode';
+    if (translationsCache.containsKey(cacheKey)) {
+      return translationsCache[cacheKey]!;
+    } else {
+      String translation = await TranslationService().translateText(text, languageCode);
+      translationsCache[cacheKey] = translation;
+      return translation;
+    }
+  }

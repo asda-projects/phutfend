@@ -26,7 +26,7 @@ class LoginScreenDeliver {
 
     if (context.mounted) {
         if (authResponse.error == true) {
-          showErrorDialog(context, "Error", authResponse.responseStatus);
+           if (context.mounted) showErrorDialog(context, "Error", authResponse.responseStatus);
           return;
         }
 
@@ -35,17 +35,13 @@ class LoginScreenDeliver {
     AuthResponse customClaimResponse = await currentUser.fromCustomClaimsCurrentUserGetField("role");
 
     if (customClaimResponse.error == true) {
-        if (context.mounted) {
-            showErrorDialog(context, "Error", customClaimResponse.responseStatus);
-          }
-            return;
+        if (context.mounted) showErrorDialog(context, "Error", customClaimResponse.responseStatus);  
+        return;
     }
 
 
     if (customClaimResponse.data is! String) {
-        if (context.mounted) {
-            showErrorDialog(context, "Error", customClaimResponse.responseStatus);
-          }
+        if (context.mounted) showErrorDialog(context, "Error", customClaimResponse.responseStatus);
             return;
     }
 

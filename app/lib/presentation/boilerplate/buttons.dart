@@ -185,7 +185,7 @@ class _DropDownFloatingActionButtonState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _cacheTranslations();
-     Provider.of<LanguageProvider>(context, listen: false).addListener(_cacheTranslations);
+    Provider.of<LanguageProvider>(context, listen: false).addListener(_cacheTranslations);
   }
 
   @override
@@ -207,14 +207,10 @@ class _DropDownFloatingActionButtonState
   }
 
 void _cacheTranslations() async {
-  final languageCode =
-      Provider.of<LanguageProvider>(context, listen: false).languageCode;
   for (var child in widget.childrensOverlayEntry) {
     if (child is ListTile && child.title is TranslatableText) {
       TranslatableText translatableText = child.title as TranslatableText;
-      // Always re-translate if the language code changes
-      String translation = await TranslationService()
-          .translateText(translatableText.text, languageCode);
+      String translation = await getCachedTranslation(context, translatableText.text, _translations);
       setState(() {
         _translations[translatableText.text] = translation;
       });
