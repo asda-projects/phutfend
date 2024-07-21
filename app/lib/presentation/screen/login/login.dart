@@ -1,3 +1,4 @@
+import 'package:animated_background/animated_background.dart';
 import 'package:app/domain/services/login_screen_deliver.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/utils/app_bar.dart';
@@ -8,34 +9,54 @@ import 'package:app/presentation/boilerplate/text_fields.dart';
 import 'package:app/presentation/utils/validation.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+
+
+  const LoginScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>  with TickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginScreen({super.key});
+  
+
 
   @override
   Widget build(BuildContext context) {
+    double heightLayout =  Layouts.adjustHeight(context, 1);
+    double widthLayout =  Layouts.adjustWidth(context, 1);
     return Scaffold(
         appBar: const OverflowAppBar(actions: [
           Padding(
               padding: EdgeInsets.only(right: 20),
               child: LanguageSelector(reloadPage: true, pageName: "Login"))
         ]),
-        body: SingleChildScrollView(
+        body: AnimatedBackground(
+        behaviour: RandomParticleBehaviour(
+          options:  ParticleOptions(
+            spawnMaxRadius: 50,
+            spawnMinSpeed: 10.00,
+            particleCount: (
+              (heightLayout.toInt() * widthLayout.toInt()) * 0.00002
+              ).toInt(),
+            spawnMaxSpeed: 20,
+            minOpacity: 0.3,
+            spawnOpacity: 0.4,
+            baseColor: Theme.of(context).colorScheme.tertiary,
+            // image: Image(image: AssetImage('assets/images/elephant.png')),
+          ),
+        ),
+        vsync: this,
+        child: SingleChildScrollView(
             child: Container(
                 alignment: Alignment.topCenter,
-                height: Layouts.adjustHeight(context, 1),
+                height: heightLayout,
                 //media query
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.surface,
-                    Theme.of(context).colorScheme.surface
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   padding:
@@ -84,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ))));
+                )))));
   }
 }
 

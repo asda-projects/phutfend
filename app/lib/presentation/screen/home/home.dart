@@ -49,9 +49,9 @@ class HomeScreen extends StatelessWidget {
                         vertical: 1), // Adjust the width as needed
 
                     child: const CustomImage(
-                      assetName: "ala-logo.png",
-                      width: 80,
-                      height: 120,
+                      assetName: "faLang-logo.png",
+                      width: 60,
+                      height: 100,
                     )),
                 const SizedBox(height: 4),
                 Top5Players(),

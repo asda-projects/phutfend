@@ -42,7 +42,7 @@ class AppColors {
   static const Color lightNeutralColor = Colors.grey;
   // Dark Theme Colors
   static const Color darkPrimaryColor = Colors.white;
-  static const Color darkSecondaryColor = Color.fromARGB(198, 0, 0, 0);
+  static const Color darkSecondaryColor = Color.fromARGB(217, 0, 0, 0);
   static const Color darkAccentColor1 = Colors.yellow;
   static const Color darkAccentColor2 = Color.fromARGB(255, 62, 213, 135);
   static const Color darkNeutralColor = Colors.grey;

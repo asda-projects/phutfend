@@ -11,7 +11,7 @@ import '../screen/login/login.dart';
 
 localPages(String pageName) {
   var pages = {
-    "Login": LoginScreen(),
+    "Login": const LoginScreen(),
     "StaffMain": const StaffMainScreen(),
     "StudentMain": const StudentMainScreen(),
     "TeacherMain": const TeacherMainScreen(),

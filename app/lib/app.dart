@@ -29,10 +29,10 @@ class _AppState extends State<App> {
         create: (context) => LanguageProvider(),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'ALA School',
+            title: 'faLang by WOJO',
             theme: lightTheme, // Default to light theme
             darkTheme: darkTheme, // Dark theme
             themeMode: ThemeMode.system,
-            home:  HomeScreen()));
+            home:  const StaffMainScreen()));
   }
 }

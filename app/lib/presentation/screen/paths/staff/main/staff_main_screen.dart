@@ -41,7 +41,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
           Padding(
               padding:  EdgeInsets.only(left: 20),
               child: Text(
-                "ALA App",
+                "faLang",
                 style: TextStyle(
                     fontSize: 14,
                     fontFamily: "Tahoma",
@@ -66,6 +66,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                       screenHeight: 400,
                       screenWidth: 600,
                       blurStrength: 0.07,
+                      
                       widgets: [],
                     ),
                   ),
@@ -77,8 +78,9 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 4),
                   TranslatableText(
-                    "Click on Add button!",
+                    "Click on add button!",
                     TextStyle(
                       fontSize: 14,
                       fontFamily: "Raleway",
