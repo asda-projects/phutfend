@@ -28,7 +28,7 @@ class _Top10PlayersState extends State<Top5Players> {
 
   List<Color> itemColors = List.filled(10, AppColors.lightNeutralColor);
 
-  double titleRankingSize = 18;
+  double titleRankingSize = 16;
   double starSize = 22;
   Timer? _timer;
 

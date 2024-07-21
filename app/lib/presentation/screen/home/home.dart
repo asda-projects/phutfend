@@ -50,8 +50,8 @@ class HomeScreen extends StatelessWidget {
 
                     child: const CustomImage(
                       assetName: "faLang-logo.png",
-                      width: 60,
-                      height: 100,
+                      width: 70,
+                      height: 90,
                     )),
                 const SizedBox(height: 4),
                 Top5Players(),
