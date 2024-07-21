@@ -302,7 +302,7 @@ void _cacheTranslations() async {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       shape: const CircleBorder(eccentricity: 0.3),
       onPressed: _toggleDropdown,
       child: Icon(widget.floatingBtnIcon),

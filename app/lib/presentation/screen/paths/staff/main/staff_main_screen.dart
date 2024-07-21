@@ -65,7 +65,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                       alignment: Alignment.topCenter,
                       screenHeight: 400,
                       screenWidth: 600,
-                      blurStrength: 0.07,
+                      blurStrength: 0.01,
                       
                       widgets: [],
                     ),
