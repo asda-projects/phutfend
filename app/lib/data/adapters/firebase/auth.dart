@@ -8,15 +8,16 @@ class AuthResponse {
   final bool error;
   final User? user;
   final String responseStatus;
+  final dynamic data;
 
   AuthResponse(
-      {required this.user, required this.error, required this.responseStatus});
+      {this.data = const {}, required this.user, required this.error, required this.responseStatus});
 }
 
 
 class AuthResponseMessages {
   // Define a map for error messages
-  static const Map<String, String> messages = {
+  static const Map<String, String> _messages = {
     'successful-auth': 'successful authentication.',
     'invalid-email': 'The email address is not valid.',
     'user-disabled':
@@ -26,9 +27,10 @@ class AuthResponseMessages {
     'network-request-failed':
         'Please check your internet configurations, and try again.',
     'unknown-error': 'An unknown error occurred. Please try again later.',
+    'missing-credentials-bussiness-logic': 'Report this issue to your administrator.'
   };
 
-  static Map<String, String> get responseStatus => messages;
+  static Map<String, String> get responseStatus => _messages;
 }
 
 class AuthUser {

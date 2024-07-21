@@ -30,6 +30,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
 
     return MainScreen(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor:  Theme.of(context).colorScheme.onTertiary,
           actions: const [
           Padding(

@@ -100,6 +100,7 @@ class _TranslatableTextState extends State<TranslatableText> {
     final translationService = TranslationService();
     final newText =
         await translationService.translateText(widget.text, languageCode);
+    if (!mounted) return; // Check if the widget is still mounted
     setState(() {
       translatedText = newText;
     });

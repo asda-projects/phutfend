@@ -17,7 +17,7 @@ class CrudUsers {
   // so or will return User instance or null
   // it need to come as userCredential.user
   final String collectionName = 'users_custom_claims';
-  //l4kKS28eiK4VjG5jhKK2cOtYOLvD
+  //
   final User? currentUser;
   final AuthUser _authUser = AuthUser();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -93,6 +93,22 @@ class CrudUsers {
     }
     // and if the user is not able to create return this
     return null;
+
+  }
+
+  Future<AuthResponse> fromCustomClaimsCurrentUserGetField(String keyField) async {
+
+    Map<String, dynamic> customClaims = await getCustomClaimsFromCurrentUser();
+
+    String? role = customClaims["role"];
+
+    if (role == null) {
+      return AuthResponse(user: currentUser, error: true, responseStatus: AuthResponseMessages.responseStatus["missing-credentials-bussiness-logic"]!);
+    }
+
+    return AuthResponse(data: role,  user: currentUser, error: false, responseStatus: AuthResponseMessages.responseStatus["successful-auth"]!);
+
+
 
   }
 

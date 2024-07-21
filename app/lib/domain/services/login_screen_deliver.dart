@@ -24,19 +24,32 @@ class LoginScreenDeliver {
     
     AuthResponse authResponse = await authUser.byEmailPwd(email, password);
 
-    if(context.mounted) {
+    if (context.mounted) {
+        if (authResponse.error == true) {
+          showErrorDialog(context, "Error", authResponse.responseStatus);
+          return;
+        }
 
-      if (authResponse.error == true) {
-        
-        showErrorDialog(context, "Error", authResponse.responseStatus);
+    CrudUsers currentUser = CrudUsers(currentUser: authResponse.user);
 
-      }
+    AuthResponse customClaimResponse = await currentUser.fromCustomClaimsCurrentUserGetField("role");
 
-      CrudUsers currentUser = CrudUsers(currentUser: authResponse.user);
+    if (customClaimResponse.error == true) {
+        if (context.mounted) {
+            showErrorDialog(context, "Error", customClaimResponse.responseStatus);
+          }
+            return;
+    }
 
-      Map<String, dynamic> customClaim = await currentUser.getCustomClaimsFromCurrentUser();
 
-      String rolePosition = customClaim["role"]!;
+    if (customClaimResponse.data is! String) {
+        if (context.mounted) {
+            showErrorDialog(context, "Error", customClaimResponse.responseStatus);
+          }
+            return;
+    }
+
+    String rolePosition = customClaimResponse.data as String;
 
       if (context.mounted) mapDeliverage(context, rolePosition);
 
