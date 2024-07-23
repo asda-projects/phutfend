@@ -31,7 +31,10 @@ class _LoginScreenState extends State<LoginScreen>  with TickerProviderStateMixi
     double heightLayout =  Layouts.adjustHeight(context, 1);
     double widthLayout =  Layouts.adjustWidth(context, 1);
     return Scaffold(
-        appBar: const OverflowAppBar(actions: [
+        appBar: const OverflowAppBar(
+          
+          actions: [
+           Expanded(child: SizedBox()),
           Padding(
               padding: EdgeInsets.only(right: 20),
               child: LanguageSelector(reloadPage: true, pageName: "Login"))

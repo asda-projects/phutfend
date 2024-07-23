@@ -94,15 +94,15 @@ class _TranslatableTextState extends State<TranslatableText> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    translateText(translatedText, null);
+    translateText();
   }
 
-  Future<void> translateText(String translatedText, dynamic returnNotMounted) async {
+  Future<void> translateText() async {
     final languageCode = Provider.of<LanguageProvider>(context).languageCode;
     final translationService = TranslationService();
     final newText =
         await translationService.translateText(widget.text, languageCode);
-    if (!mounted) return returnNotMounted; // Check if the widget is still mounted
+    // Check if the widget is still mounted
     setState(() {
       translatedText = newText;
     });

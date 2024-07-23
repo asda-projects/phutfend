@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class StaffAddTeacherScreen extends StatelessWidget {
-  CrudUsers crud = CrudUsers(currentUser: null);
+  CrudUsers crud = CrudUsers(user: null);
   AppLogger logger = AppLogger();
   
   StaffAddTeacherScreen({super.key});
@@ -20,6 +20,8 @@ class StaffAddTeacherScreen extends StatelessWidget {
       length: 3, // Number of tabs
       child: Scaffold(
         appBar: OverflowAppBar(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           additionalWidth: 245,
           incrementWidth: 120,
           actions: [

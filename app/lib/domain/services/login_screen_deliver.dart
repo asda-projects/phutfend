@@ -30,7 +30,7 @@ class LoginScreenDeliver {
           return;
         }
 
-    CrudUsers currentUser = CrudUsers(currentUser: authResponse.user);
+    CrudUsers currentUser = CrudUsers(user: authResponse.user);
 
     AuthResponse customClaimResponse = await currentUser.fromCustomClaimsCurrentUserGetField("role");
 

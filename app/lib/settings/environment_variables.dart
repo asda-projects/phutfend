@@ -9,4 +9,4 @@ const int emulatorUiPort = 9098;
 // Firestore Emulator
 const int firestoreEmulatorPort = 8080;
 
-const String serviceAccountFilePath = "firebase_service_account.json";
+

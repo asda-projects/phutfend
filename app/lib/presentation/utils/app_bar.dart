@@ -9,17 +9,27 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   final double additionalWidth;
   final double incrementWidth;
+  final double titleWidth;
+  final double singleElementThreshold;
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
 
   const OverflowAppBar({
     super.key,
     required this.actions,
+
     this.automaticallyImplyLeading = true,
     this.backgroundColor,
     this.leading,
     this.title,
     this.bottom, 
+    this.singleElementThreshold = 55,
+    this.titleWidth = 200,
     this.additionalWidth = 48, 
-    this.incrementWidth = 100,
+    this.incrementWidth = 100, 
+    this.mainAxisAlignment = MainAxisAlignment.start, 
+    this.mainAxisSize = MainAxisSize.max
+    
   });
 
   double calculateRequiredWidth({
@@ -29,7 +39,7 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
     Widget? leading,
     Widget? title,
     double leadingWidth = kToolbarHeight,
-    double titleWidth = 200.0,
+
   }) {
     double requiredWidth = 0;
 
@@ -54,7 +64,7 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
     required double availableWidth,
     required double additionalWidth,
     required double incrementWidth,
-    required double singleElementThreshold,
+
   }) {
     List<T> visibleElements = [];
     double requiredWidth = initialRequiredWidth;
@@ -95,7 +105,7 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
           availableWidth: availableWidth,
           additionalWidth: additionalWidth,
           incrementWidth: incrementWidth,
-          singleElementThreshold: 55.0,
+          
         );
 
         return AppBar(
@@ -103,9 +113,11 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
           backgroundColor: backgroundColor,
           leading: leading,
           title: title,
-          actions: [Expanded(child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          actions: [
+            Expanded(
+            child: Row(
+            mainAxisSize:mainAxisSize,
+            mainAxisAlignment: mainAxisAlignment,
             children: visibleActions
             ))],
           bottom: bottom,

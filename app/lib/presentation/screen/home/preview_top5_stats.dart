@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:app/data/adapters/translation.dart';
 import 'package:app/presentation/utils/app_colors.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 final faker = Faker();
 
@@ -15,6 +17,9 @@ class Top5Players extends StatefulWidget {
 }
 
 class _Top10PlayersState extends State<Top5Players> {
+  String toBeTranslated = 'Os 5 melhores jogadores!';
+  String oldText ='';
+
   int randomXp = faker.randomGenerator.integer(20, min: 1);
 
   List<Map<String, dynamic>> ranking = [
@@ -49,6 +54,24 @@ class _Top10PlayersState extends State<Top5Players> {
       _fetchUpdatedRanking();
     });
   }
+
+    @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _translateHintText();
+  }
+
+  Future<void> _translateHintText() async {
+    final languageCode = Provider.of<LanguageProvider>(context).languageCode;
+    final translationService = TranslationService();
+    final newText = await translationService.translateText(toBeTranslated, languageCode);
+    if (mounted) {
+      setState(() {
+        oldText = newText;
+      });
+    }
+  }  
+
 
   Future<void> _fetchUpdatedRanking() async {
     // Simulação de requisição HTTP
@@ -123,9 +146,9 @@ class _Top10PlayersState extends State<Top5Players> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: TranslatableText(
-              'Os 5 melhores jogadores.',
-              TextStyle(fontSize: titleRankingSize),
+            child: Text(
+              oldText,
+              style: TextStyle(fontSize: titleRankingSize),
             ),
           ),
           const Padding(

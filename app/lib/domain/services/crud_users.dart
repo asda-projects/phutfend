@@ -1,20 +1,12 @@
 
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:app/data/adapters/firebase/auth.dart';
-import 'package:app/data/models/users/abstract.dart';
-import 'package:app/data/models/users/staff.dart';
-import 'package:app/data/models/users/student.dart';
-import 'package:app/data/models/users/teacher.dart';
-import 'package:app/data/models/users/unknow.dart';
-import 'package:app/domain/utils/maps.dart';
+import 'package:app/data/models/custom_claims.dart';
+import 'package:app/data/models/users.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:googleapis/identitytoolkit/v3.dart';
-import 'package:googleapis_auth/auth_io.dart';
+
 
 class CrudUsers {
  
@@ -28,18 +20,22 @@ class CrudUsers {
   final AuthUser _authUser = AuthUser();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  
 
+  CrudUsers({User? user}) : currentUser = user ?? AuthUser().fireauth.currentUser;
 
-  CrudUsers({required this.currentUser});
 
 
 
   Future<List<Map<String, dynamic>>> getAll() async {
+     bool ableTo= await isStaffRole(currentUser);
+     if (ableTo == true) {
     QuerySnapshot querySnapshot = await _firestore.collection(collectionName).get();
     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
-
-  Future<User?> create(String email, String password, String role, Map<String, dynamic>? customClaims) async {
+    return [{}];
+  }
+  Future<User?> create(String email, String password, String role, AbstractCustomClaims customClaims) async {
 
     //verify is its staff to be able to create other users
     bool ableToCreate = await isStaffRole(currentUser);
@@ -49,50 +45,23 @@ class CrudUsers {
       //start the process of creating user
       try {
 
-        AbstractCustomUser newUser;
-        // check which type of user is to be created
-        // made a classe with case for field treatment if needed in the future
-        switch (role) {
-          case 'student':
-            newUser = Student(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
-            break;
-          case 'teacher':
-            newUser = Teacher(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
-            break;
-          case 'staff':
-            newUser = Staff(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
-            break;
-          default:
-            newUser = Unknow(creatorUid: currentUser!.uid,  uid: '',  password: password, email: email);
-            break;
-        }
+        AbstractCustomUser newUser = AppUser(creatorUid: currentUser!.uid,  uid: '', password: password, email: email, role: role);
 
-        // if the role is not correct so its not created
-        if (newUser.role != "unknow") {
+        if (newUser.roles.contains(role) == true) {
 
-          // here is created after the user after the 2 main verification
-          // if who is creating is the user is staff
-          // and if the role for the creation is not a unknow role
+
 
           UserCredential userCredential = await _authUser.fireauth.createUserWithEmailAndPassword(email: email, password: password);
           User? user = userCredential.user;
 
           if( user != null) {
           
-                
-
-                // remove some fields to not be duplicated bcuz in user firebase already exist
-                Map newUserMapped =  removeFromMap(newUser.toMap(), ["uid"]);
-
-
-                //if there is any extra field that is need to add it added here
-                if (customClaims != null) {
-                  newUserMapped.addAll(customClaims.map((key, value) => MapEntry(key, value.toString())));
-                }
-
+                newUser.uid = user.uid;
+               
+                Map newUserWithCustomClaimsMapped = {...customClaims.toMap(), ...newUser.toMap()};
                 // after created the user for auth
-                // is added in the collection users_custom_claims the extras fields
-                await _firestore.collection(collectionName).doc(user.uid).set(newUserMapped.cast<String, String>());
+                // is added in the collection [collectionName] the extras fields
+                await _firestore.collection(collectionName).doc(user.uid).set(newUserWithCustomClaimsMapped.cast<String, String>());
                 return user;
         }
 

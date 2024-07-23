@@ -37,6 +37,8 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         appBar: OverflowAppBar(
           automaticallyImplyLeading: false,
           backgroundColor:  Theme.of(context).colorScheme.onTertiary,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           actions: const [
           Padding(
               padding:  EdgeInsets.only(left: 20),

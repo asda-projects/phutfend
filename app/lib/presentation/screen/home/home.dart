@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const OverflowAppBar(actions: [
+        Expanded(child: SizedBox()),
         Padding(padding: EdgeInsets.only(right: 20), child: LanguageSelector())
       ]),
       body: SingleChildScrollView(
