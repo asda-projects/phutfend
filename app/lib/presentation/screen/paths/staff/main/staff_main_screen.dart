@@ -106,19 +106,19 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         ], childrensOverlayEntry: [
               ListTile(
                 title:
-                    TranslatableText('Add teachers', defaultTextStyle),
+                    TranslatableText('Manage teachers', defaultTextStyle),
                 onTap: () {
                   navigateToPage(context, 'StaffAddTeacher');
                 },
               ),
               ListTile(
-                title: TranslatableText('Add students', defaultTextStyle),
+                title: TranslatableText('Manage students', defaultTextStyle),
                 onTap: () {
                   navigateToPage(context, 'StaffAddStudent');
                 },
               ),
               ListTile(
-                title: TranslatableText('Add phrases', defaultTextStyle),
+                title: TranslatableText('Manage phrases', defaultTextStyle),
                 onTap: () {
                   navigateToPage(context, 'StaffAddPhrase');
                 },

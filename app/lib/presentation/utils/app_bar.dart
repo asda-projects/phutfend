@@ -6,6 +6,9 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final Widget? leading;
   final Widget? title;
+  final PreferredSizeWidget? bottom;
+  final double additionalWidth;
+  final double incrementWidth;
 
   const OverflowAppBar({
     super.key,
@@ -14,53 +17,104 @@ class OverflowAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.leading,
     this.title,
+    this.bottom, 
+    this.additionalWidth = 48, 
+    this.incrementWidth = 100,
   });
+
+  double calculateRequiredWidth({
+    required BuildContext context,
+    required BoxConstraints constraints,
+    required bool automaticallyImplyLeading,
+    Widget? leading,
+    Widget? title,
+    double leadingWidth = kToolbarHeight,
+    double titleWidth = 200.0,
+  }) {
+    double requiredWidth = 0;
+
+    // Calculate the width needed for the leading widget or the back button
+    if (automaticallyImplyLeading && Navigator.canPop(context)) {
+      requiredWidth += leadingWidth; // Default width of the back button
+    } else if (leading != null) {
+      requiredWidth += leadingWidth; // Width of the custom leading widget
+    }
+
+    // Estimate the width for the title
+    if (title != null) {
+      requiredWidth += titleWidth; // Assuming the title will take up to 200 pixels. Adjust as needed.
+    }
+
+    return requiredWidth;
+  }
+
+  List<T> getGenericElements<T>({
+    required List<T> elements,
+    required double initialRequiredWidth,
+    required double availableWidth,
+    required double additionalWidth,
+    required double incrementWidth,
+    required double singleElementThreshold,
+  }) {
+    List<T> visibleElements = [];
+    double requiredWidth = initialRequiredWidth;
+
+    for (var element in elements) {
+      if (requiredWidth + additionalWidth <= availableWidth) {
+        visibleElements.add(element);
+        requiredWidth += incrementWidth;
+      } else {
+        break;
+      }
+    }
+
+    if (visibleElements.length == 1 && requiredWidth + singleElementThreshold >= availableWidth) {
+      visibleElements.clear();
+    }
+
+    return visibleElements;
+  }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        double requiredWidth = calculateRequiredWidth(
+          context: context,
+          constraints: constraints,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+          leading: leading,
+          title: title,
+        );
+
         double availableWidth = constraints.maxWidth;
-        double requiredWidth = 0;
 
-        // Calcular a largura necessária para o leading widget ou o botão de back
-        if (automaticallyImplyLeading && Navigator.canPop(context)) {
-          requiredWidth += kToolbarHeight; // Largura padrão do botão de back
-        } else if (leading != null) {
-          requiredWidth += kToolbarHeight; // Largura do widget leading customizado
-        }
-
-        // Estimar a largura para o título
-        if (title != null) {
-          requiredWidth += 200; // Assumindo que o título ocupará até 200 pixels. Ajuste conforme necessário.
-        }
-
-        // Manter sua lógica para a largura das ações
-        List<Widget> visibleActions = [];
-        for (var action in actions) {
-          if (requiredWidth + 48 <= availableWidth) {
-            visibleActions.add(action);
-            requiredWidth += 100;
-          } else {
-            break;
-          }
-        }
-
-        if (visibleActions.length == 1 && requiredWidth + 55 >= availableWidth) {
-          visibleActions.clear();
-        }
+        List<Widget> visibleActions = getGenericElements<Widget>(
+          elements: actions,
+          initialRequiredWidth: requiredWidth,
+          availableWidth: availableWidth,
+          additionalWidth: additionalWidth,
+          incrementWidth: incrementWidth,
+          singleElementThreshold: 55.0,
+        );
 
         return AppBar(
           automaticallyImplyLeading: automaticallyImplyLeading,
           backgroundColor: backgroundColor,
           leading: leading,
           title: title,
-          actions: visibleActions,
+          actions: [Expanded(child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: visibleActions
+            ))],
+          bottom: bottom,
         );
       },
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(
+      kToolbarHeight + (bottom?.preferredSize.height ?? 0.0));
 }

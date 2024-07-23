@@ -1,10 +1,12 @@
 import 'package:app/data/adapters/translation.dart';
 
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
+  // ignore: prefer_typing_uninitialized_variables
   final ifIsEmptyReturn;
   final Function(String) onChanged;
   final TextEditingController controller;
@@ -92,15 +94,15 @@ class _TranslatableTextState extends State<TranslatableText> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _translateText();
+    translateText(translatedText, null);
   }
 
-  Future<void> _translateText() async {
+  Future<void> translateText(String translatedText, dynamic returnNotMounted) async {
     final languageCode = Provider.of<LanguageProvider>(context).languageCode;
     final translationService = TranslationService();
     final newText =
         await translationService.translateText(widget.text, languageCode);
-    if (!mounted) return; // Check if the widget is still mounted
+    if (!mounted) return returnNotMounted; // Check if the widget is still mounted
     setState(() {
       translatedText = newText;
     });
@@ -113,6 +115,67 @@ class _TranslatableTextState extends State<TranslatableText> {
       style: widget.style,
       softWrap: widget.softWrap,
       overflow: widget.overflow,
+    );
+  }
+}
+
+class SearchBox extends StatefulWidget {
+  final double boxHeight;
+  final double boxWidth;
+  final BorderRadius boxBorderRadius;
+  final EdgeInsetsGeometry boxPadding;
+  final String boxTextHint;
+
+  SearchBox({
+    super.key,
+    required this.boxHeight,
+    required this.boxWidth,
+    required this.boxBorderRadius,
+    required this.boxPadding,
+    this.boxTextHint = 'Search',
+  });
+
+  @override
+  _SearchBoxState createState() => _SearchBoxState();
+}
+
+class _SearchBoxState extends State<SearchBox> {
+  String hintText = '';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _translateHintText();
+  }
+
+  Future<void> _translateHintText() async {
+    final languageCode = Provider.of<LanguageProvider>(context).languageCode;
+    final translationService = TranslationService();
+    final newText = await translationService.translateText(widget.boxTextHint, languageCode);
+    if (mounted) {
+      setState(() {
+        hintText = newText;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: widget.boxHeight,
+      width: widget.boxWidth,
+      padding: widget.boxPadding,
+      child: TextField(
+        decoration: InputDecoration(
+          hintStyle: const TextStyle(fontSize: 13),
+          contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+          hintText: hintText.isEmpty ? widget.boxTextHint : hintText,
+          prefixIcon: const Icon(Icons.search),
+          border: OutlineInputBorder(
+            borderRadius: widget.boxBorderRadius,
+          ),
+        ),
+      ),
     );
   }
 }
