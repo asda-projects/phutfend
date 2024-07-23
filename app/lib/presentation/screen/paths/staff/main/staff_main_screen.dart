@@ -36,7 +36,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
     return MainScreen(
         appBar: OverflowAppBar(
           automaticallyImplyLeading: false,
-          backgroundColor:  Theme.of(context).colorScheme.onTertiary,
+          backgroundColor:  Theme.of(context).colorScheme.onTertiary.withOpacity(1),
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           actions: const [
