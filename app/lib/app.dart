@@ -34,6 +34,6 @@ class _AppState extends State<App> {
             theme: lightTheme, // Default to light theme
             darkTheme: darkTheme, // Dark theme
             themeMode: ThemeMode.system,
-            home:  const StaffAddTeacherScreen()));
+            home:  StaffAddTeacherScreen()));
   }
 }

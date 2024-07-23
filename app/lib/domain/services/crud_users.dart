@@ -1,5 +1,8 @@
 
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:app/data/adapters/firebase/auth.dart';
 import 'package:app/data/models/users/abstract.dart';
 import 'package:app/data/models/users/staff.dart';
@@ -7,8 +10,11 @@ import 'package:app/data/models/users/student.dart';
 import 'package:app/data/models/users/teacher.dart';
 import 'package:app/data/models/users/unknow.dart';
 import 'package:app/domain/utils/maps.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:googleapis/identitytoolkit/v3.dart';
+import 'package:googleapis_auth/auth_io.dart';
 
 class CrudUsers {
  
@@ -16,7 +22,7 @@ class CrudUsers {
   // it will come from AuthUser.byEmailPwd 
   // so or will return User instance or null
   // it need to come as userCredential.user
-  final String collectionName = 'users_custom_claims';
+  final String collectionName = 'users';
   //
   final User? currentUser;
   final AuthUser _authUser = AuthUser();
@@ -25,6 +31,13 @@ class CrudUsers {
 
 
   CrudUsers({required this.currentUser});
+
+
+
+  Future<List<Map<String, dynamic>>> getAll() async {
+    QuerySnapshot querySnapshot = await _firestore.collection(collectionName).get();
+    return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+  }
 
   Future<User?> create(String email, String password, String role, Map<String, dynamic>? customClaims) async {
 
@@ -41,16 +54,16 @@ class CrudUsers {
         // made a classe with case for field treatment if needed in the future
         switch (role) {
           case 'student':
-            newUser = Student(creatorUid: currentUser!.uid,  uid: '', password: '', email: '');
+            newUser = Student(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
             break;
           case 'teacher':
-            newUser = Teacher(creatorUid: currentUser!.uid,  uid: '', password: '', email: '');
+            newUser = Teacher(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
             break;
           case 'staff':
-            newUser = Staff(creatorUid: currentUser!.uid,  uid: '', password: '', email: '');
+            newUser = Staff(creatorUid: currentUser!.uid,  uid: '', password: password, email: email);
             break;
           default:
-            newUser = Unknow(creatorUid: currentUser!.uid,  uid: '', password: '', email: '');
+            newUser = Unknow(creatorUid: currentUser!.uid,  uid: '',  password: password, email: email);
             break;
         }
 
@@ -62,21 +75,29 @@ class CrudUsers {
           // and if the role for the creation is not a unknow role
 
           UserCredential userCredential = await _authUser.fireauth.createUserWithEmailAndPassword(email: email, password: password);
-          var user = userCredential.user;
+          User? user = userCredential.user;
+
+          if( user != null) {
           
-          // remove some fields to not be duplicated bcuz in user firebase already exist
-          Map newUserMapped = removeFromMap(newUser.toMap(), ["email", "uid", "password"]);
+                
+
+                // remove some fields to not be duplicated bcuz in user firebase already exist
+                Map newUserMapped =  removeFromMap(newUser.toMap(), ["uid"]);
 
 
-          //if there is any extra field that is need to add it added here
-          if (customClaims != null) {
-            newUserMapped.addAll(customClaims.map((key, value) => MapEntry(key, value.toString())));
-          }
+                //if there is any extra field that is need to add it added here
+                if (customClaims != null) {
+                  newUserMapped.addAll(customClaims.map((key, value) => MapEntry(key, value.toString())));
+                }
 
-          // after created the user for auth
-          // is added in the collection users_custom_claims the extras fields
-          await _firestore.collection(collectionName).doc(user!.uid).set(newUserMapped.cast<String, String>());
-          return user;
+                // after created the user for auth
+                // is added in the collection users_custom_claims the extras fields
+                await _firestore.collection(collectionName).doc(user.uid).set(newUserMapped.cast<String, String>());
+                return user;
+        }
+
+          return null;
+        
         }
 
         // if the role user is unkown so its return this

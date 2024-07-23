@@ -16,7 +16,7 @@ localPages(String pageName) {
     "StudentMain": const StudentMainScreen(),
     "TeacherMain": const TeacherMainScreen(),
     "StaffAddStudent": const StaffAddStudentScreen(),
-    "StaffAddTeacher": const StaffAddTeacherScreen(),
+    "StaffAddTeacher":  StaffAddTeacherScreen(),
     "StaffAddPhrase": const StaffAddPhraseScreen()
   };
   return pages[pageName];

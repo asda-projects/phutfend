@@ -9,7 +9,7 @@ class Staff extends AbstractCustomUser {
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
-      'creator_uid': creatorUid,
+      'creatorUid': creatorUid,
       'email': email,
       'password':password,
       'role': role,

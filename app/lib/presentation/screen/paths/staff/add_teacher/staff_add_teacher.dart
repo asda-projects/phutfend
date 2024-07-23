@@ -1,12 +1,18 @@
+import 'package:app/domain/services/crud_users.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
 import 'package:app/presentation/utils/app_bar.dart';
+import 'package:app/settings/logs.dart';
 
 import 'package:flutter/material.dart';
 
 
+// ignore: must_be_immutable
 class StaffAddTeacherScreen extends StatelessWidget {
-  const StaffAddTeacherScreen({super.key});
+  CrudUsers crud = CrudUsers(currentUser: null);
+  AppLogger logger = AppLogger();
+  
+  StaffAddTeacherScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,21 @@ class StaffAddTeacherScreen extends StatelessWidget {
           },
         ),
         ),
-      body:TabBarView(
+      body:Center(
+        child: ElevatedButton(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        onPressed: () async {  
+          List allUsers = await crud.getAll();
+          logger.debug("allUsers: $allUsers");
+        }, 
+        child: const Icon(Icons.add),),
+    )));
+  }
+}
+
+/**
+ * 
+ * TabBarView(
           children:[ 
             Center(
         child: Container(
@@ -61,11 +81,9 @@ class StaffAddTeacherScreen extends StatelessWidget {
       height: 200,
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
       child: const Text("StaffAddTeacherScreen 3"),
-    ))])));
-  }
-}
-
-/**
+    ))]))
+ * 
+ * 
  *         bottom:  TabBar(
           
             dividerColor: Theme.of(context).scaffoldBackgroundColor,

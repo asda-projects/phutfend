@@ -1,9 +1,9 @@
 abstract class AbstractCustomUser {
   String uid;
-  final String creatorUid;
-  final String email;
-  final String password;
-  final String role;
+  String creatorUid;
+  String email;
+  String password;
+  String role;
 
   AbstractCustomUser({required this.uid, required this.creatorUid, required this.email, required this.password, required this.role});
 
