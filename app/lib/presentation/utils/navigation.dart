@@ -19,7 +19,7 @@ localPages(String pageName) {
     "StaffAddStudent": const StaffAddStudentScreen(),
     "StaffAddTeacher":  StaffAddTeacherScreen(),
     "StaffAddPhrase": const StaffAddPhraseScreen(),
-    "StaffProfile": StaffProfileScreen()
+    "StaffProfile": StaffProfileScreen_()
   };
   return pages[pageName];
 }

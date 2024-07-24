@@ -1,5 +1,5 @@
 import 'package:animated_background/animated_background.dart';
-import 'package:app/data/adapters/translation.dart';
+
 import 'package:app/domain/services/login_screen_deliver.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/utils/app_bar.dart';

@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 
 
 void showErrorDialog(BuildContext context, String title, String message) async {
-  TextStyle defaultTitleTextStyle = TextStyle(
-    fontSize: 14,
-    color: Theme.of(context).colorScheme.primary,
-  );
+
 
   TextStyle defaultContentTextStyle = TextStyle(
     fontSize: 12,
@@ -22,7 +19,7 @@ void showErrorDialog(BuildContext context, String title, String message) async {
 
   
 
-  String translatedTitle = await getCachedTranslation(context, title, translationsCache);
+  
   String translatedContent = await getCachedTranslation(context,message, translationsCache);
   String translatedButtonText = await getCachedTranslation(context,'OK', translationsCache);
 
