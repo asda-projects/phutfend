@@ -1,3 +1,4 @@
+
 import 'package:app/presentation/boilerplate/assets.dart';
 import 'package:app/presentation/boilerplate/body.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
@@ -7,11 +8,14 @@ import 'package:app/presentation/screen/paths/main_screen.dart';
 import 'package:app/presentation/utils/app_bar.dart';
 
 import 'package:app/presentation/utils/navigation.dart';
+
 import 'package:flutter/material.dart';
 
 
 
 class StaffMainScreen extends StatefulWidget {
+
+  
   const StaffMainScreen({super.key});
 
   @override
@@ -20,10 +24,11 @@ class StaffMainScreen extends StatefulWidget {
 }
 
 class _StaffMainScreenState extends State<StaffMainScreen> {
+  
+  
+
   @override
   Widget build(BuildContext context) {
-
-
 
 
     TextStyle defaultTextStyle = TextStyle(
@@ -89,12 +94,18 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  const SizedBox(height: 50),
                 ],
               )),
               
-        childrenWidgets: const <Widget>[], 
-        childrensOverlayEntry: [
+        childrenWidgets: <Widget>[
+          const Expanded(child: SizedBox()),
+         IconButton( 
+            icon: const Icon(Icons.person), 
+            
+            onPressed: () {
+            navigateToPage(context, 'StaffProfile');
+          }),
+        ], childrensOverlayEntry: [
               ListTile(
                 title:
                     TranslatableText('Manage teachers', defaultTextStyle),
@@ -118,44 +129,3 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
   }
 }
 
-
-/**
- * Scaffold(
-      appBar: AppBar(actions: const [
-        Padding(padding: EdgeInsets.only(right: 20), child: LanguageSelector())
-      ]),
-      body: const Center(
-        child: TranslatableText('Content goes here', TextStyle(fontSize: 16)),
-      ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(eccentricity: 0.3),
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                // Add your onPressed code here!
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Add your onPressed code here!
-              },
-            ),
-          ],
-        ),
-      ),
-    );
- */

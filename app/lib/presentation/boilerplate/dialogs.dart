@@ -31,10 +31,8 @@ void showErrorDialog(BuildContext context, String title, String message) async {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
-          translatedTitle,
-          style: defaultTitleTextStyle,
-        ),
+        icon: const Icon(Icons.error_outline_rounded),
+        shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
         content: Text(
           translatedContent,
           style: defaultContentTextStyle,
@@ -42,7 +40,13 @@ void showErrorDialog(BuildContext context, String title, String message) async {
           overflow: TextOverflow.clip,
         ),
         actions: <Widget>[
-          TextButton(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Theme.of(context).colorScheme.secondary
+            ),
+            child:TextButton(
+            
             child: Text(
               translatedButtonText,
               style: defaultContentTextStyle,
@@ -50,7 +54,7 @@ void showErrorDialog(BuildContext context, String title, String message) async {
             onPressed: () {
               Navigator.of(context).pop();
             },
-          ),
+          )),
         ],
       );
     },

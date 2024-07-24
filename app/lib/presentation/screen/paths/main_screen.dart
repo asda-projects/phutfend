@@ -1,4 +1,5 @@
 import 'package:app/presentation/boilerplate/buttons.dart';
+import 'package:app/presentation/utils/auth_check.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,7 +28,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return AuthCheck(
+        builder: (context) => Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
       
       appBar: widget.appBar,
@@ -37,15 +39,16 @@ class _MainScreenState extends State<MainScreen> {
         childrensOverlayEntry: widget.childrensOverlayEntry,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
+        height: 60,
         color: Theme.of(context).colorScheme.onTertiary,
         shape: const CircularNotchedRectangle(),
-        notchMargin: 8.0,
+        notchMargin: 6.0,
         child: Row(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: widget.childrenWidgets,
         ),
       ),
-    );
+    ));
   }
 }

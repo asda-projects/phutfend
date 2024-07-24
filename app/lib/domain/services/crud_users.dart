@@ -16,19 +16,21 @@ class CrudUsers {
   // it need to come as userCredential.user
   final String collectionName = 'users';
   //
-  final User? currentUser;
+  final User? _currentUserInstance;
   final AuthUser _authUser = AuthUser();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   
 
-  CrudUsers({User? user}) : currentUser = user ?? AuthUser().fireauth.currentUser;
+  CrudUsers({User? user}) : _currentUserInstance = user ?? AuthUser().fireauth.currentUser;
 
 
-
+  Future<User?> currentUser() async {
+    return _authUser.fireauth.currentUser;
+  }
 
   Future<List<Map<String, dynamic>>> getAll() async {
-     bool ableTo= await isStaffRole(currentUser);
+     bool ableTo= await isStaffRole(_currentUserInstance);
      if (ableTo == true) {
     QuerySnapshot querySnapshot = await _firestore.collection(collectionName).get();
     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
@@ -38,14 +40,14 @@ class CrudUsers {
   Future<User?> create(String email, String password, String role, AbstractCustomClaims customClaims) async {
 
     //verify is its staff to be able to create other users
-    bool ableToCreate = await isStaffRole(currentUser);
+    bool ableToCreate = await isStaffRole(_currentUserInstance);
 
     if (ableToCreate == true) {
       
       //start the process of creating user
       try {
 
-        AbstractCustomUser newUser = AppUser(creatorUid: currentUser!.uid,  uid: '', password: password, email: email, role: role);
+        AbstractCustomUser newUser = AppUser(creatorUid: _currentUserInstance!.uid,  uid: '', password: password, email: email, role: role);
 
         if (newUser.roles.contains(role) == true) {
 
@@ -93,10 +95,10 @@ class CrudUsers {
     String? role = customClaims["role"];
 
     if (role == null) {
-      return AuthResponse(user: currentUser, error: true, responseStatus: AuthResponseMessages.responseStatus["missing-credentials-bussiness-logic"]!);
+      return AuthResponse(user: _currentUserInstance, error: true, responseStatus: AuthResponseMessages.responseStatus["missing-credentials-bussiness-logic"]!);
     }
 
-    return AuthResponse(data: role,  user: currentUser, error: false, responseStatus: AuthResponseMessages.responseStatus["successful-auth"]!);
+    return AuthResponse(data: role,  user: _currentUserInstance, error: false, responseStatus: AuthResponseMessages.responseStatus["successful-auth"]!);
 
 
 
@@ -109,11 +111,11 @@ class CrudUsers {
      * as user firebase cannot be modified it will be added as extra field
      * 
      */
-  if (currentUser == null) {
+  if (_currentUserInstance == null) {
     return {};
   }
 
-  DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection(collectionName).doc(currentUser!.uid).get();
+  DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection(collectionName).doc(_currentUserInstance.uid).get();
   return snapshot.data() ?? {};
   }
 
