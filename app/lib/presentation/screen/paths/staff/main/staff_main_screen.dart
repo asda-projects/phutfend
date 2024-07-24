@@ -36,7 +36,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
     return MainScreen(
         appBar: OverflowAppBar(
           automaticallyImplyLeading: false,
-          backgroundColor:  Theme.of(context).colorScheme.onTertiary.withOpacity(1),
+          backgroundColor:  Theme.of(context).colorScheme.onTertiary,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           actions: const [
@@ -89,23 +89,12 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
+                  const SizedBox(height: 50),
                 ],
               )),
               
-        childrenWidgets: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              // Add your onPressed code here!
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Add your onPressed code here!
-            },
-          ),
-        ], childrensOverlayEntry: [
+        childrenWidgets: const <Widget>[], 
+        childrensOverlayEntry: [
               ListTile(
                 title:
                     TranslatableText('Manage teachers', defaultTextStyle),

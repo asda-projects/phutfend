@@ -49,27 +49,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-/**
- * [
-              ListTile(
-                title:
-                    TranslatableText('Adicionar Professor', defaultTextStyle),
-                onTap: () {
-                  navigateToPage(context, 'StaffAddTeacher');
-                },
-              ),
-              ListTile(
-                title: TranslatableText('Adicionar Aluno', defaultTextStyle),
-                onTap: () {
-                  navigateToPage(context, 'StaffAddStudent');
-                },
-              ),
-              ListTile(
-                title: TranslatableText('Adicionar Frase', defaultTextStyle),
-                onTap: () {
-                  navigateToPage(context, 'StaffAddPhrase');
-                },
-              ),
-            ]
- */
