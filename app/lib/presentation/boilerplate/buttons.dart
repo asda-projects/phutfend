@@ -6,8 +6,9 @@ import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding) {
+ButtonStyle defaultBtnStyle(BuildContext context, EdgeInsetsGeometry? padding,{TextStyle? textStyle}) {
   return TextButton.styleFrom(
+    textStyle: textStyle,
     foregroundColor: Theme.of(context).colorScheme.onTertiary,
     backgroundColor: Theme.of(context).colorScheme.tertiary,
     // disabledForegroundColor: Theme.of(context).colorScheme.secondary,
@@ -79,6 +80,7 @@ class CustomIconAndTextButton extends StatelessWidget {
       child: switchToColumn
           ? Column(children: widgets)
           : Row(
+              
               mainAxisAlignment: MainAxisAlignment.center,
               children: widgets,
             ),

@@ -1,9 +1,11 @@
+
+
+
 import 'package:animated_background/animated_background.dart';
 import 'package:app/presentation/boilerplate/assets.dart';
 import 'package:app/presentation/boilerplate/body.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
-import 'package:app/presentation/utils/layouts.dart';
 import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,95 +17,48 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderStateMixin {
-  Widget buildContent(BuildContext context, BoxConstraints constraints) {
-    // Determine font sizes based on screen width
-    double screenSize = constraints.maxWidth + constraints.maxHeight;
-    double headlineFontSize = screenSize * 0.025; // Adjust as necessary
-    double descriptionFontSize = screenSize * 0.012; // Adjust as necessary
-    double defaultScreenDivider = 0.6;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+
+
+  Widget buildBody(BuildContext context, BoxConstraints constraints) {
+
+      double screenSize = constraints.maxWidth * constraints.maxHeight;
+
+
+      
+
+      return   SingleChildScrollView(
+      
+     child: Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            logoBuilder(constraints, screenSize <= 1150),
-            Container(
-              padding: const EdgeInsets.only(left: 30),
-              width: Layouts.adjustWidth(context, defaultScreenDivider),
-              child: TranslatableText(
-                softWrap: true,
-                overflow: TextOverflow.clip,
-                "A Learning Management System.\nAn enjoyable place to learn.",
-                TextStyle(
-                  fontSize: headlineFontSize,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 30),
-              width: Layouts.adjustWidth(context, defaultScreenDivider),
-              child: TranslatableText(
-                softWrap: true,
-                overflow: TextOverflow.clip,
-                "Offering a structured and engaging micro-learning process for students with seamless team collaboration."
-                "Our system empowers educators to create, manage, and assess personalized learning experiences,"
-                "ensuring every student finds joy in their educational journey.",
-                TextStyle(
-                  fontSize: descriptionFontSize,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            CustomIconAndTextButton(
-              icon: Icons.arrow_forward_ios_sharp,
-              onPressed: () {
-                navigateToPage(context, "Login");
-              },
-              text: "Login",
-              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
-              switchToColumn: false,
-              btnStyle: defaultBtnStyle(
-                context,
-                const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              ),
-            ),
-          ],
-        ),
-        Flexible(
-          child: AnimatedBackground(
-        behaviour: RandomParticleBehaviour(
-          options:  ParticleOptions(
-            spawnMaxRadius: 50,
-            spawnMinSpeed: 10.00,
-            particleCount: (
-              (constraints.maxHeight.toInt() * constraints.maxWidth.toInt()) * 0.00002
-              ).toInt(),
-            spawnMaxSpeed: 20,
-            minOpacity: 0.3,
-            spawnOpacity: 0.4,
-            baseColor: Theme.of(context).colorScheme.tertiary,
-            // image: Image(image: AssetImage('assets/images/elephant.png')),
-          ),
-        ),
-        vsync: this,
-        child: logoBuilder(constraints, screenSize >= 1150))),
-      ],
-    );
+          buildColumn(constraints, constraints.maxWidth <= 750),
+          buildAnimation(
+            constraints: constraints,
+            child: buildLogo(constraints, constraints.maxWidth >= 750)
+          )
+      ]));
+
   }
 
-  Widget logoBuilder(BoxConstraints constraints, bool comparision) {
+  Widget buildLogo(BoxConstraints constraints, bool comparision) {
+    
+
+    
+
+    double ifColumnSize = constraints.maxWidth <= 750 ? constraints.maxWidth / 3: constraints.maxWidth / 10;
 
     if (comparision) {
-      return Center(child: Container(
-            padding: const EdgeInsets.all(20),
-            child: CustomImage(
+      return Center(
+        child: Container(
+            
+            padding: const EdgeInsets.only(left: 30),
+            child:  CustomImage(
               assetName: "faLang-logo.png",
-              width: constraints.maxWidth * 0.4, // Adjust image size based on screen width
-              height: constraints.maxHeight * 0.2, // Adjust image size based on screen height
+              width: ifColumnSize, // Adjust image size based on screen width
+              height: ifColumnSize, // Adjust image size based on screen height
+
               fit: BoxFit.contain, // Ensure image fits within its container
             ),
           ),
@@ -115,14 +70,130 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
     }
   }
 
+  Widget buildAnimation({required Widget child, required BoxConstraints constraints}) {
+
+    double particleCount = ((constraints.maxHeight  * constraints.maxWidth) / (150*150));
+    
+    return Flexible( 
+      
+      child: Container(
+              height: constraints.maxHeight,
+              width: constraints.maxWidth - (constraints.maxWidth / 3.5),
+              
+              
+              //width: Layouts.adjustWidth(context, defaultScreenDivider),
+              
+          child: AnimatedBackground(
+        behaviour: RandomParticleBehaviour(
+          options:  ParticleOptions(
+            spawnMaxRadius: 50,
+            spawnMinSpeed: 10.00,
+            particleCount: particleCount.toInt(),
+            spawnMaxSpeed: 20,
+            minOpacity: 0.3,
+            spawnOpacity: 0.4,
+            baseColor: Theme.of(context).colorScheme.tertiary,
+            // image: Image(image: AssetImage('assets/images/elephant.png')),
+          ),
+        ),
+        vsync: this,
+        child: child)));
+  }
+
+  Widget buildColumn(BoxConstraints constraints, bool comparision) {
+
+    return Column(
+            mainAxisSize: MainAxisSize.max,
+            
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+              buildLogo(constraints, comparision),
+              buildHeadline(constraints),
+              buildDescription(constraints),
+              buildButton(constraints)
+          ]);
+
+  }
+
+
+  Widget buildHeadline(BoxConstraints constraints) {
+
+    
+
+    return Container(
+              padding:   const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              width:  constraints.maxWidth / 1.5,
+              child: TranslatableText(
+                softWrap: true,
+                overflow: TextOverflow.clip,
+                "A Learning Management System.\nAn enjoyable place to learn.",
+                TextStyle(
+                  fontSize: (constraints.maxWidth / 25),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+
+  }
+
+  Widget buildDescription(BoxConstraints constraints) {
+
+    
+
+    return Container(
+              padding:   const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              width:  constraints.maxWidth / 1.5,
+              child:  TranslatableText(
+                softWrap: true,
+                overflow: TextOverflow.clip,
+                "Offering a structured and engaging micro-learning process for students with seamless team collaboration."
+                "Our system empowers educators to create, manage, and assess personalized learning experiences,"
+                "ensuring every student finds joy in their educational journey.",
+                TextStyle(
+                   fontSize: (constraints.maxWidth / 55),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+
+  }
+
+  buildButton(BoxConstraints constraints) {
+
+    double paddingRight = constraints.maxWidth <= 800 ?  constraints.maxWidth / 15 :constraints.maxWidth / 6;
+
+    
+
+    return Container(
+              padding:    EdgeInsets.only(left: paddingRight, right: paddingRight, top: 10),
+             width:  constraints.maxWidth / 1.5,
+              child: CustomIconAndTextButton(
+              icon: Icons.arrow_forward_ios_sharp,
+              onPressed: () {
+                navigateToPage(context, "Login");
+              },
+              text: "Next",
+              padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+              switchToColumn: false,
+              addIcon: constraints.maxWidth <= 400 ? false : true,
+              txtStyle: TextStyle(fontSize: constraints.maxWidth <= 750 ? 12 : 16),
+              btnStyle: defaultBtnStyle(
+                context, constraints.maxWidth <= 500 ? EdgeInsets.symmetric(horizontal: 10, vertical: 1)  : EdgeInsets.symmetric(horizontal: 80, vertical: 15)),
+            ));
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    
     return LayoutBuilder(
       builder: (context, constraints) {
         return ResponsiveContent(
-          body: buildContent(context, constraints),
-        );
-      },
-    );
+          body:  buildBody(context, constraints)
+            );
+            
+          });
+
   }
-}
+  }
