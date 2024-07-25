@@ -6,12 +6,14 @@ class CustomImage extends StatelessWidget {
   final String assetName;
   final double? width;
   final double? height;
+  final BoxFit? fit;
 
   const CustomImage({
     super.key,
     required this.assetName,
     this.width,
     this.height,
+    this.fit
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomImage extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary,
       width: width,
       height: height,
+      fit: fit,
     );
   }
 }

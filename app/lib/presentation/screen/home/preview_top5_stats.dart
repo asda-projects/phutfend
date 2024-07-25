@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:app/data/adapters/translation.dart';
@@ -13,10 +15,10 @@ class Top5Players extends StatefulWidget {
   Top5Players({Key? key}) : super(key: key);
 
   @override
-  _Top10PlayersState createState() => _Top10PlayersState();
+  _Top5PlayersState createState() => _Top5PlayersState();
 }
 
-class _Top10PlayersState extends State<Top5Players> {
+class _Top5PlayersState extends State<Top5Players> {
   String toBeTranslated = 'Os 5 melhores jogadores!';
   String oldText ='';
 
