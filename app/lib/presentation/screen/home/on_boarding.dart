@@ -129,7 +129,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
                 overflow: TextOverflow.clip,
                 "A Learning Management System.\nAn enjoyable place to learn.",
                 TextStyle(
-                  fontSize: (constraints.maxWidth / 25),
+                  fontSize: constraints.maxWidth <= 750 ? (constraints.maxWidth / 20) : (constraints.maxWidth / 25),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -151,7 +151,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
                 "Our system empowers educators to create, manage, and assess personalized learning experiences,"
                 "ensuring every student finds joy in their educational journey.",
                 TextStyle(
-                   fontSize: (constraints.maxWidth / 55),
+                   fontSize: constraints.maxWidth <= 750 ? (constraints.maxWidth / 30) : (constraints.maxWidth / 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -161,7 +161,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
 
   buildButton(BoxConstraints constraints) {
 
-    double paddingRight = constraints.maxWidth <= 800 ?  constraints.maxWidth / 15 :constraints.maxWidth / 6;
+    double paddingRight = constraints.maxWidth <= 800 ?  constraints.maxWidth / 15 :constraints.maxWidth / 5;
 
     
 
