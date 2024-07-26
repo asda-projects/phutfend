@@ -6,8 +6,14 @@ if [ "$#" -ne 1 ]; then
 fi
 
 # Set variables
-FIREBASE_AUTH_EMULATOR_HOST="$1"
-CUSTOM_CLAIMS='{"role": "staff"}'
+FIRESTORE_EMULATOR_HOST="$1"
+PROJECT_ID='phut-322a4'
+COLLECTION_NAME='users'
+DOCUMENT_DATA='{
+  "fields": {
+    "role": { "stringValue": "staff" }
+  }
+}'
 
 
 
@@ -15,6 +21,18 @@ if [ -z "$ID_TOKEN" ] || [ -z "$LOCAL_ID" ]; then
     echo "Failed to extract ID token and local ID."
     exit 1
 fi
+
+# Make the curl request to update the document
+RESPONSE=$(curl -X PATCH \
+"http://$FIRESTORE_EMULATOR_HOST/v1/projects/$PROJECT_ID/databases/(default)/documents/$COLLECTION_NAME/$LOCAL_ID" \
+-H "Content-Type: application/json" \
+-d "$DOCUMENT_DATA")
+
+echo $RESPONSE
+
+
+
+: << 'COMMENT'
 
 # Escape CUSTOM_CLAIMS for use in the curl request
 ESCAPED_CUSTOM_CLAIMS=$(echo "$CUSTOM_CLAIMS" | jq -c .)

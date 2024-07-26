@@ -7,7 +7,6 @@ fi
 
 # Set variables
 FIREBASE_AUTH_EMULATOR_HOST="$1"
-PROJECT_ID="phut-322a4"
 EMAIL="asasdeaguia10@gmail.com"
 PASSWORD="123456"
 CUSTOM_CLAIMS='{"role": "staff"}'
@@ -30,6 +29,6 @@ RESPONSE=$(curl -X POST \
 ID_TOKEN=$(echo "$RESPONSE" | jq -r .idToken)
 LOCAL_ID=$(echo "$RESPONSE" | jq -r .localId)
 
-
+echo $RESPONSE
 export ID_TOKEN
 export LOCAL_ID
