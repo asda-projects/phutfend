@@ -1,4 +1,5 @@
 import 'package:app/data/adapters/translation.dart';
+import 'package:app/domain/utils/strings.dart';
 
 
 import 'package:flutter/material.dart';
@@ -105,6 +106,7 @@ class _TranslatableTextState extends State<TranslatableText> {
     // Check if the widget is still mounted
     setState(() {
       translatedText = newText;
+      translatedText = capitalizeFirstLetter(translatedText);
     });
   }
 

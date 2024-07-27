@@ -22,7 +22,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
 
   Widget buildBody(BuildContext context, BoxConstraints constraints) {
 
-      double screenSize = constraints.maxWidth * constraints.maxHeight;
+      
 
 
       

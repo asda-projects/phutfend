@@ -7,18 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-  /** "flutter": {
-    "platforms": {
-      "dart": {
-        "lib/firebase_options.dart": {
-          "projectId": "phut-322a4",
-          "configurations": {
-            "web": "1:800686089392:web:4dd9c2d4bb321720ca0775"
-          }
-        }
-      }
-    }
-  } , */
+
 
 Future<void> main() async {
 

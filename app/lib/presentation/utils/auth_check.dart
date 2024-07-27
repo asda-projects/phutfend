@@ -2,11 +2,16 @@ import 'package:app/presentation/screen/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthCheck extends StatelessWidget {
+class AuthCheck extends StatefulWidget {
   final WidgetBuilder builder;
 
   const AuthCheck({super.key, required this.builder});
 
+  @override
+  _AuthCheckState createState() => _AuthCheckState();
+}
+
+class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -23,7 +28,7 @@ class AuthCheck extends StatelessWidget {
             redirectErrorMessage: "You must be signed in to continue.",
           );
         } else {
-          return builder(context);
+          return widget.builder(context);
         }
       },
     );

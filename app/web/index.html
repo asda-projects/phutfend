@@ -31,8 +31,80 @@
 
   <title>app</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    .firebase-emulator-warning {
+      display: none; /* Initial state to hide */
+    }
+  </style>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
-</body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const checkForEmulatorWarning = setInterval(() => {
+        const emulatorWarning = document.querySelector('.firebase-emulator-warning');
+        if (emulatorWarning) {
+          // Clear all previous styles
+          emulatorWarning.style.cssText = '';
+
+          // Apply new styles
+          emulatorWarning.style.position = 'fixed';
+          emulatorWarning.style.top = '10px';
+          emulatorWarning.style.right = '10px';
+          emulatorWarning.style.width = '30px';
+          emulatorWarning.style.height = '30px';
+          emulatorWarning.style.backgroundColor = 'red';
+          emulatorWarning.style.borderRadius = '50%';
+          emulatorWarning.style.display = 'flex';
+          emulatorWarning.style.alignItems = 'center';
+          emulatorWarning.style.justifyContent = 'center';
+          emulatorWarning.style.color = 'white';
+          emulatorWarning.style.fontWeight = 'bold';
+          emulatorWarning.style.fontSize = '20px';
+          emulatorWarning.style.cursor = 'pointer';
+          emulatorWarning.style.userSelect = 'none';
+          emulatorWarning.style.zIndex = '1000';
+
+          emulatorWarning.textContent = '!';
+          emulatorWarning.title = 'Running in emulator mode';
+
+          // Make the custom alert icon draggable
+          emulatorWarning.onmousedown = function(event) {
+            let shiftX = event.clientX - emulatorWarning.getBoundingClientRect().left;
+            let shiftY = event.clientY - emulatorWarning.getBoundingClientRect().top;
+
+            function moveAt(pageX, pageY) {
+              emulatorWarning.style.left = pageX - shiftX + 'px';
+              emulatorWarning.style.top = pageY - shiftY + 'px';
+            }
+
+            function onMouseMove(event) {
+              moveAt(event.pageX, event.pageY);
+            }
+
+            // Add mousemove event listener
+            document.addEventListener('mousemove', onMouseMove);
+
+            // Add mouseup event listener
+            document.addEventListener('mouseup', function onMouseUp() {
+              document.removeEventListener('mousemove', onMouseMove);
+              document.removeEventListener('mouseup', onMouseUp);
+            });
+          };
+
+          emulatorWarning.ondragstart = function() {
+            return false;
+          };
+
+          // Make it visible
+          emulatorWarning.style.display = 'flex';
+
+          // Clear the interval once the element is found and styled
+          clearInterval(checkForEmulatorWarning);
+        }
+      }, 100); // Check every 100ms
+    });
+  </script>
+  </body>
 </html>

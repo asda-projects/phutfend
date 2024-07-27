@@ -1,6 +1,5 @@
 
 import 'package:app/data/adapters/translation.dart';
-
 import 'package:app/presentation/boilerplate/text_fields.dart';
 import 'package:app/presentation/utils/navigation.dart';
 import 'package:flutter/material.dart';
@@ -161,153 +160,88 @@ class LanguageSelector extends StatelessWidget {
         ));
   }
 }
+class DropLanguages extends StatelessWidget {
+  final bool reloadPage;
+  final String? pageName;
+  final Color? iconColor;
 
-class DropDownFloatingActionButton extends StatefulWidget {
-  final IconData? floatingBtnIcon;
-  final List<Widget> childrensOverlayEntry;
-
-  const DropDownFloatingActionButton({
-    super.key,
-    required this.floatingBtnIcon,
-    required this.childrensOverlayEntry,
+  const DropLanguages({
+    super.key, 
+    this.reloadPage = false, 
+    this.pageName, 
+    this.iconColor,
   });
 
   @override
-  _DropDownFloatingActionButtonState createState() =>
-      _DropDownFloatingActionButtonState();
-}
+  Widget build(BuildContext context) {
+    Color dropDownColor = Theme.of(context).colorScheme.onSurface;
 
-class _DropDownFloatingActionButtonState
-    extends State<DropDownFloatingActionButton> with WidgetsBindingObserver {
-  OverlayEntry? _overlayEntry;
-  final Map<String, String> _translations = {};
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _cacheTranslations();
-    Provider.of<LanguageProvider>(context, listen: false).addListener(_cacheTranslations);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    // Remove listener when disposing
-    Provider.of<LanguageProvider>(context, listen: false).removeListener(_cacheTranslations);
-    _removeOverlay();
-    super.dispose();
-  }
-
-  void _toggleDropdown() {
-    if (_overlayEntry == null) {
-      _overlayEntry = _createOverlayEntry();
-      Overlay.of(context).insert(_overlayEntry!);
-    } else {
-      _removeOverlay();
-    }
-  }
-
-void _cacheTranslations() async {
-  for (var child in widget.childrensOverlayEntry) {
-    if (child is ListTile && child.title is TranslatableText) {
-      TranslatableText translatableText = child.title as TranslatableText;
-      String translation = await getCachedTranslation(context, translatableText.text, _translations);
-      setState(() {
-        _translations[translatableText.text] = translation;
-      });
-    }
-  }
-}
-
-
-  double adjustHeightOverlay(double screenSizeHeight ) {
-    
-    
-    if (screenSizeHeight >= 830) {
-      
-      return  screenSizeHeight * 0.12;
-    }
-
-    return screenSizeHeight * 0.17;
-
-  }
-
-  OverlayEntry _createOverlayEntry() {
-  RenderBox renderBox = context.findRenderObject() as RenderBox;
-  var size = renderBox.size;
-  var offset = renderBox.localToGlobal(Offset.zero);
-  var screenSize = MediaQuery.of(context).size;
-
-
-  
-
-  return OverlayEntry(
-
-    builder: (context) => GestureDetector(
-      behavior:  HitTestBehavior.translucent,
-      onTap: _removeOverlay, // Close overlay when tapping outside
-      // behavior: HitTestBehavior.translucent,
-      child: Stack(
-        children: [
-          Positioned(
-            left: offset.dx - 65,
-            top: offset.dy - size.height - adjustHeightOverlay(screenSize.height),
-            width: size.width + 140,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Material(
-                
-                color: Colors.black, // Make the material transparent
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: widget.childrensOverlayEntry.map((child) {
-                    if (child is ListTile && child.title is TranslatableText) {
-                      TranslatableText translatableText =
-                          child.title as TranslatableText;
-                      return ListTile(
-                        title: Text(_translations[translatableText.text] ??
-                            translatableText.text),
-                        onTap: () {
-                          if (child.onTap != null) {
-                            child.onTap!();
-                          }
-                          _removeOverlay();
-                        },
-                      );
-                    } else {
-                      return child;
-                    }
-                  }).toList(),
-                ),
-              ),
-            ),
-          ),
-        ],
+    return ExpansionTile(
+      title: TranslatableText(
+        'Languages',
+        TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
-    ),
-  );
+      leading: const Icon(Icons.translate),
+      children: [
+        ListTile(
+          title: Text('English', style: TextStyle(color: dropDownColor)),
+          onTap: () => _changeLanguage(context, 'en'),
+        ),
+        ListTile(
+          title: Text('ไทย', style: TextStyle(color: dropDownColor)),
+          onTap: () => _changeLanguage(context, 'th'),
+        ),
+        ListTile(
+          title: Text('Português', style: TextStyle(color: dropDownColor)),
+          onTap: () => _changeLanguage(context, 'pt'),
+        ),
+        ListTile(
+          title: Text('中文', style: TextStyle(color: dropDownColor)),
+          onTap: () => _changeLanguage(context, 'zh-cn'),
+        ),
+      ],
+    );
+  }
+
+  void _changeLanguage(BuildContext context, String languageCode) {
+    Provider.of<LanguageProvider>(context, listen: false).changeLanguage(languageCode);
+
+    if (reloadPage) {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              pageName != null ? localPages(pageName!) : Container(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 300),
+        ),
+      );
+    }
+  }
 }
+class CustomDrawer extends StatelessWidget {
+  final List<Widget> tiles;
 
+  const CustomDrawer({
+    super.key,
+    required this.tiles,
 
-  void _removeOverlay() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  @override
-  void didChangeMetrics() {
-    _removeOverlay();
-    super.didChangeMetrics();
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: Theme.of(context).colorScheme.tertiary,
-      shape: const CircleBorder(eccentricity: 0.3),
-      onPressed: _toggleDropdown,
-      child: Icon(widget.floatingBtnIcon),
-    );
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.4), // Cor de fundo transparente
+      child: ClipRect( // ClipRect é usado para garantir que o efeito de desfoque se limite ao tamanho do Drawer
+    child: ListView(
+        padding: EdgeInsets.zero,
+        children: tiles,
+      ),
+    ));
   }
 }

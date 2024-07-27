@@ -25,9 +25,7 @@ class CrudUsers {
   CrudUsers({User? user}) : _currentUserInstance = user ?? AuthUser().fireauth.currentUser;
 
 
-  Future<User?> currentUser() async {
-    return _authUser.fireauth.currentUser;
-  }
+
 
   Future<List<Map<String, dynamic>>> getAll() async {
      bool ableTo= await isStaffRole(_currentUserInstance);

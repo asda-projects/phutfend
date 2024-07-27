@@ -112,9 +112,23 @@ class AuthUser {
     }
   }
 
-    
+  Future<void> logout() async {
+      try {
+        await fireauth.signOut();
+        logger.debug('Signed out successfully');
+      } catch (e) {
+        logger.debug('Failed to sign out: $e');
+      }
+    }
 
+  Future<bool> isLogged() async {
+    User? currentUser  = fireauth.currentUser;
 
+    if (currentUser == null) {
+      return false;
+    } else {
+      return true;
+    }
 
-
+  }
 }

@@ -48,6 +48,7 @@ dependencies:
   animated_background: ^2.0.0
   googleapis: ^12.0.0
   googleapis_auth: ^1.6.0
+  avatar_glow: ^3.0.1
 
 dependency_overrides:
   http: ^1.1.0
@@ -78,9 +79,11 @@ flutter:
   assets:
      - assets/images/ala-logo.png
      - assets/images/elephant.png
-     - assets/images/logo-elephant.png
-     - assets/images/staff_main_screen.png
+     - assets/images/staff-main-screen.png
+     - assets/images/default-user-avatar.png
+     - assets/images/learning-bro.png
      - assets/images/faLang-logo.png
+
      
 
 
