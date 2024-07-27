@@ -181,7 +181,7 @@ class DropLanguages extends StatelessWidget {
         'Languages',
         TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
-      leading: const Icon(Icons.translate),
+      leading:  Icon(Icons.translate, color: Theme.of(context).colorScheme.primary),
       children: [
         ListTile(
           title: Text('English', style: TextStyle(color: dropDownColor)),
@@ -236,7 +236,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.4), // Cor de fundo transparente
+      backgroundColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.8), // Cor de fundo transparente
       child: ClipRect( // ClipRect é usado para garantir que o efeito de desfoque se limite ao tamanho do Drawer
     child: ListView(
         padding: EdgeInsets.zero,

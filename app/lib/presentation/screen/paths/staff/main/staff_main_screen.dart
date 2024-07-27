@@ -121,7 +121,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
       title: TranslatableText("Users",
       TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
-      leading: const Icon(Icons.group),
+      leading:  Icon(Icons.group, color: Theme.of(context).colorScheme.primary),
       children: [
         ListTile(
                 title:
@@ -142,10 +142,10 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                   navigateToPage(context, 'StaffAddPhrase');
                 },
               )]),
-               const DropLanguages(iconColor: Colors.white,),
+               const DropLanguages(),
               ListTile(
                 title:  TranslatableText('Logout', defaultTextStyle),
-                leading: const Icon(Icons.logout),
+                leading:  Icon(Icons.logout, color: Theme.of(context).colorScheme.primary),
                 onTap: () async {
                   navigateToPage(context, "Home");
                   _authUser.logout();
