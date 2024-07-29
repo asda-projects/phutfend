@@ -12,10 +12,10 @@ class DropPopupMenu extends StatefulWidget {
   final List<PopupMenuEntry<String>> childrensOverlayEntry;
 
   const DropPopupMenu({
-    Key? key,
+    super.key,
     required this.childrensOverlayEntry,
     required this.floatingBtnIcon,
-  }) : super(key: key);
+  });
 
   @override
   _DropPopupMenuState createState() => _DropPopupMenuState();
@@ -86,6 +86,7 @@ void _showOptions(BuildContext context) {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: Theme.of(context).colorScheme.tertiary,

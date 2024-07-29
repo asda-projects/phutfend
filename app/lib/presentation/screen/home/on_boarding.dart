@@ -76,7 +76,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
     
     return Flexible( 
       
-      child: Container(
+      child: SizedBox(
               height: constraints.maxHeight,
               width: constraints.maxWidth - (constraints.maxWidth / 3.5),
               
@@ -179,7 +179,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderS
               addIcon: constraints.maxWidth <= 400 ? false : true,
               txtStyle: TextStyle(fontSize: constraints.maxWidth <= 750 ? 12 : 16),
               btnStyle: defaultBtnStyle(
-                context, constraints.maxWidth <= 500 ? EdgeInsets.symmetric(horizontal: 10, vertical: 1)  : EdgeInsets.symmetric(horizontal: 80, vertical: 15)),
+                context, constraints.maxWidth <= 500 ? const EdgeInsets.symmetric(horizontal: 10, vertical: 1)  : const EdgeInsets.symmetric(horizontal: 80, vertical: 15)),
             ));
   }
 

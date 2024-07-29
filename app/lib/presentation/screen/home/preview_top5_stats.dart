@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 final faker = Faker();
 
 class Top5Players extends StatefulWidget {
-  Top5Players({Key? key}) : super(key: key);
+  const Top5Players({super.key});
 
   @override
   _Top5PlayersState createState() => _Top5PlayersState();
@@ -52,7 +52,7 @@ class _Top5PlayersState extends State<Top5Players> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 4), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
       _fetchUpdatedRanking();
     });
   }
@@ -78,7 +78,7 @@ class _Top5PlayersState extends State<Top5Players> {
   Future<void> _fetchUpdatedRanking() async {
     // Simulação de requisição HTTP
     await Future.delayed(
-        Duration(seconds: 2)); // Simula o tempo de resposta da requisição
+        const Duration(seconds: 2)); // Simula o tempo de resposta da requisição
 
     // Aqui você trataria a resposta da requisição e atualizaria a lista de ranking
     List<Map<String, dynamic>> updatedRanking = [
@@ -109,7 +109,7 @@ class _Top5PlayersState extends State<Top5Players> {
       for (int i = 0; i < 3; i++) {
         if (ranking[i]['name'] != updatedRanking[i]['name']) {
           itemColors[i] = Colors.yellow;
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               itemColors[i] = Theme.of(context).colorScheme.primary;
             });

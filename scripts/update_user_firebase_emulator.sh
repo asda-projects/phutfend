@@ -11,7 +11,7 @@ PROJECT_ID='phut-322a4'
 COLLECTION_NAME='users'
 DOCUMENT_DATA='{
   "fields": {
-    "role": { "stringValue": "staff" },
+    "role": { "stringValue": "staff" }
   }
 }'
 

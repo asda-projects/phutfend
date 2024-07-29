@@ -57,7 +57,7 @@ class CustomTextFormField extends StatelessWidget {
           maxLines: maxLines,
           enableSuggestions: false,
           maxLength: maxLength,
-          autofillHints: [],
+          autofillHints: const [],
           controller: controller,
           decoration: InputDecoration(
             labelText: translatedLabel,
@@ -128,7 +128,7 @@ class SearchBox extends StatefulWidget {
   final EdgeInsetsGeometry boxPadding;
   final String boxTextHint;
 
-  SearchBox({
+  const SearchBox({
     super.key,
     required this.boxHeight,
     required this.boxWidth,

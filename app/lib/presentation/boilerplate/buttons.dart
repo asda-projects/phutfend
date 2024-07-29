@@ -174,7 +174,7 @@ class DropLanguages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color dropDownColor = Theme.of(context).colorScheme.onSurface;
+    Color dropDownColor = Theme.of(context).colorScheme.primary;
 
     return ExpansionTile(
       title: TranslatableText(

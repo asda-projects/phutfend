@@ -118,7 +118,8 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
         ),
           ),
            ExpansionTile(
-      title: TranslatableText("Users",
+      title: 
+      TranslatableText("Users",
       TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
       leading:  Icon(Icons.group, color: Theme.of(context).colorScheme.primary),
@@ -135,14 +136,23 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                 onTap: () {
                   navigateToPage(context, 'StaffAddStudent');
                 },
-              ),
-        ListTile(
+              )]),
+              
+              ExpansionTile(
+      title: TranslatableText("Class",
+      TextStyle(color: Theme.of(context).colorScheme.primary),
+      ),
+      leading:  Icon(Icons.school, color: Theme.of(context).colorScheme.primary),
+      children: [
+              ListTile(
                 title: TranslatableText('Manage phrases', defaultTextStyle),
                 onTap: () {
                   navigateToPage(context, 'StaffAddPhrase');
                 },
-              )]),
-               const DropLanguages(),
+              )
+      ]),
+      const DropLanguages(),
+  
               ListTile(
                 title:  TranslatableText('Logout', defaultTextStyle),
                 leading:  Icon(Icons.logout, color: Theme.of(context).colorScheme.primary),
@@ -152,31 +162,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
                 }
           
               )
+
             ]);
   }
 }
-
-/**
- *         appBar: OverflowAppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor:  Theme.of(context).colorScheme.onTertiary,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
-          actions: const [
-          Padding(
-              padding:  EdgeInsets.only(left: 20),
-              child: Text(
-                "faLang",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: "Tahoma",
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              )),
-           Expanded(child: SizedBox()),
-           Padding(
-              padding: EdgeInsets.only(right: 20), child: LanguageSelector(iconColor: Colors.white,))
-        ]),
-        floatingBtnIcon: Icons.add,
- */
-
