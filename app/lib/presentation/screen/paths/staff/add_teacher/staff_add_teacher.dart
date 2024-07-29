@@ -1,6 +1,7 @@
 import 'package:app/domain/services/crud_users.dart';
 import 'package:app/presentation/boilerplate/buttons.dart';
 import 'package:app/presentation/boilerplate/text_fields.dart';
+import 'package:app/presentation/screen/paths/staff/add_teacher/body_wide.dart';
 import 'package:app/presentation/utils/app_bar.dart';
 import 'package:app/settings/logs.dart';
 
@@ -45,15 +46,8 @@ class StaffAddTeacherScreen extends StatelessWidget {
           },
         ),
         ),
-      body:Center(
-        child: ElevatedButton(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        onPressed: () async {  
-          List allUsers = await crud.getAll();
-          logger.debug("allUsers: $allUsers");
-        }, 
-        child: const Icon(Icons.add),),
-    )));
+      body: const AddTeacherBodyWide()
+      ));
   }
 }
 

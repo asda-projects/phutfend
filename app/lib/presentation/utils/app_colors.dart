@@ -40,6 +40,7 @@ class AppColors {
   static const Color lightAccentColor1 = Colors.yellow;
   static const Color lightAccentColor2 = Color.fromARGB(255, 62, 213, 135);
   static const Color lightNeutralColor = Colors.grey;
+  static const Color lightRiskyActionColor = Color.fromARGB(255, 206, 91, 56);
   // Dark Theme Colors
   static const Color darkPrimaryColor = Colors.white;
   static const Color darkSecondaryColor = Color.fromARGB(217, 0, 0, 0);
@@ -61,6 +62,7 @@ ThemeData lightTheme = ThemeData(
     onTertiary: AppColors.darkSecondaryColor,
     onTertiaryContainer:  Color.fromARGB(190, 0, 0, 0),
     onSurface: AppColors.lightNeutralColor,
+    onInverseSurface: AppColors.lightRiskyActionColor,
     onError: Colors.red,
     error: Colors.red,
   ),
@@ -107,6 +109,8 @@ ThemeData darkTheme = ThemeData(
     onTertiary: AppColors.lightPrimaryColor,
     onTertiaryContainer:  Color.fromARGB(190, 0, 0, 0),
     onSurface: AppColors.lightNeutralColor,
+    onInverseSurface: AppColors.lightRiskyActionColor,
+
     onError: Colors.red,
     error: Colors.red,
   ),
