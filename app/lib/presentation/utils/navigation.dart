@@ -1,4 +1,5 @@
 import 'package:app/presentation/screen/home/home.dart';
+import 'package:app/presentation/screen/paths/staff/add_class/staff_add_class.dart';
 import 'package:app/presentation/screen/paths/staff/add_phrase/staff_add_phrase.dart';
 import 'package:app/presentation/screen/paths/staff/add_student/staff_add_student.dart';
 import 'package:app/presentation/screen/paths/staff/add_teacher/staff_add_teacher.dart';
@@ -21,6 +22,7 @@ localPages(String pageName) {
     "StaffAddStudent": const StaffAddStudentScreen(),
     "StaffAddTeacher":  StaffAddTeacherScreen(),
     "StaffAddPhrase": const StaffAddPhraseScreen(),
+    "StaffAddClass": const StaffAddClassScreen()
     
   };
   return pages[pageName];

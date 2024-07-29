@@ -36,17 +36,23 @@ labelSmall: The default text color for small labels.
 class AppColors {
   // Light Theme Colors
   static const Color lightPrimaryColor = Color.fromARGB(198, 0, 0, 0);
+  static const Color lightDarkerPrimaryColor = Color.fromARGB(255, 20, 20, 20);
+
   static const Color lightSecondaryColor = Colors.white;
   static const Color lightAccentColor1 = Colors.yellow;
   static const Color lightAccentColor2 = Color.fromARGB(255, 62, 213, 135);
-  static const Color lightNeutralColor = Colors.grey;
+  static const Color lightNeutralColor = Color.fromARGB(255, 157, 157, 157);
   static const Color lightRiskyActionColor = Color.fromARGB(255, 206, 91, 56);
+  static const Color lightDarkerNeutralColor = Color.fromARGB(255, 61, 61, 61);
   // Dark Theme Colors
   static const Color darkPrimaryColor = Colors.white;
   static const Color darkSecondaryColor = Color.fromARGB(217, 0, 0, 0);
   static const Color darkAccentColor1 = Colors.yellow;
   static const Color darkAccentColor2 = Color.fromARGB(255, 62, 213, 135);
-  static const Color darkNeutralColor = Colors.grey;
+  static const Color darkNeutralColor = Color.fromARGB(255, 157, 157, 157);
+  static const Color darkRiskyActionColor = Color.fromARGB(255, 206, 91, 56);
+  static const Color darkDarkerNeutralColor = Color.fromARGB(255, 61, 61, 61);
+
 }
 
 ThemeData lightTheme = ThemeData(
@@ -63,6 +69,7 @@ ThemeData lightTheme = ThemeData(
     onTertiaryContainer:  Color.fromARGB(190, 0, 0, 0),
     onSurface: AppColors.lightNeutralColor,
     onInverseSurface: AppColors.lightRiskyActionColor,
+    inverseSurface: AppColors.lightDarkerPrimaryColor,
     onError: Colors.red,
     error: Colors.red,
   ),
@@ -109,8 +116,8 @@ ThemeData darkTheme = ThemeData(
     onTertiary: AppColors.lightPrimaryColor,
     onTertiaryContainer:  Color.fromARGB(190, 0, 0, 0),
     onSurface: AppColors.lightNeutralColor,
-    onInverseSurface: AppColors.lightRiskyActionColor,
-
+    onInverseSurface: AppColors.darkRiskyActionColor,
+    inverseSurface: AppColors.darkPrimaryColor,
     onError: Colors.red,
     error: Colors.red,
   ),

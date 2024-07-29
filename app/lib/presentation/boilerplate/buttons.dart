@@ -245,3 +245,85 @@ class CustomDrawer extends StatelessWidget {
     ));
   }
 }
+
+
+
+class DropList extends StatefulWidget {
+  final List<String> items;
+  final String? selectedItem;
+  final void Function(String?) onChanged;
+  final String labelText;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final TextStyle? txtStyle;
+  final TextStyle? hintStyle;
+
+  const DropList({
+    super.key, 
+    required this.items,
+    this.selectedItem,
+    required this.onChanged,
+    required this.labelText, 
+    this.enabledBorder, this.focusedBorder, 
+    this.txtStyle, this.hintStyle,
+  });
+
+  
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _DropListState createState() => _DropListState();
+}
+
+class _DropListState extends State<DropList> {
+
+  String hintText = '';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _translateHintText();
+  }
+
+  Future<void> _translateHintText() async {
+    final languageCode = Provider.of<LanguageProvider>(context).languageCode;
+    final translationService = TranslationService();
+    final newText = await translationService.translateText(widget.labelText, languageCode);
+    if (mounted) {
+      setState(() {
+        hintText = newText;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+        TextStyle defaultTextStyle = widget.txtStyle ??
+        const TextStyle(
+          fontSize: 16,
+        );
+
+
+
+    return DropdownButtonFormField<String>(
+      decoration: InputDecoration(
+        enabledBorder: widget.enabledBorder,
+        focusedBorder: widget.focusedBorder,
+        hintStyle: widget.hintStyle,
+        hintText: hintText.isEmpty ? widget.labelText : hintText,
+        border: InputBorder.none
+      ),
+      
+      value: widget.selectedItem,
+      items: widget.items.map((String item) {
+        return DropdownMenuItem<String>(
+          
+          value: item,
+          child: TranslatableText(item, defaultTextStyle),
+        );
+      }).toList(),
+      onChanged: widget.onChanged
+    );
+  }
+}

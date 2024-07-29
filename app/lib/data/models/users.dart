@@ -1,11 +1,11 @@
 
 
 abstract class AbstractCustomUser {
-  String uid;
-  String creatorUid;
+  String uid; // added auto
+  String creatorUid; // added auto
   String email;
   String password;
-  String role;
+  String role; // added auto
 
   List roles = ["staff", "teacher", "student"];
 

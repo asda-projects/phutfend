@@ -145,7 +145,12 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
       TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
       leading:  Icon(Icons.school, color: Theme.of(context).colorScheme.primary),
-      children: [
+      children: [ListTile(
+                title: TranslatableText('Manage classes', defaultTextStyle),
+                onTap: () {
+                  navigateToPage(context, 'StaffAddClass');
+                },
+              ),
               ListTile(
                 title: TranslatableText('Manage phrases', defaultTextStyle),
                 onTap: () {

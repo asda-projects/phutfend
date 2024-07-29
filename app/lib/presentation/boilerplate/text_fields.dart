@@ -18,6 +18,9 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final TextStyle? labelStyle;
   final TextStyle? hintStyle;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final Color? cursorColor;
 
   const CustomTextFormField({
     super.key,
@@ -32,6 +35,9 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.maxLength,
     this.maxLines = 1,
+    this.enabledBorder, 
+    this.focusedBorder, 
+    this.cursorColor
   });
 
   Future<List<String>> _getTranslatedTexts(BuildContext context) async {
@@ -60,11 +66,15 @@ class CustomTextFormField extends StatelessWidget {
           autofillHints: const [],
           controller: controller,
           decoration: InputDecoration(
+            enabledBorder: enabledBorder,
+            focusedBorder: focusedBorder,
             labelText: translatedLabel,
             hintText: translatedHint,
             labelStyle: labelStyle ?? const TextStyle(fontSize: 16),
             hintStyle: hintStyle ?? const TextStyle(fontSize: 14),
           ),
+          style: labelStyle,
+          cursorColor: cursorColor,
           keyboardType: keyboardType,
           obscureText: obscureText,
           validator: validator,

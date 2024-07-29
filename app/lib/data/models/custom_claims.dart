@@ -5,16 +5,36 @@ abstract class AbstractCustomClaims {
   final String gender;
   final String phoneNumber;
   final String identificationNumber;
+  final String typeOfIdentificationNumber;
+  final String supervisedClasses;
 
 
-  List genders = ["woman", "female", "other"];
+  static const List<String> genders = ["Man", "Woman", "Other"];
+  static const List<String> identificationNumberTypes = [
+    "Passport",
+    "National ID Card",
+    "Driver's License",
+    "Social Security Card (or equivalent)",
+    "Birth Certificate",
+    "Voter ID Card",
+    "Residence Permit",
+    "Military ID Card",
+    "Student ID Card",
+    "Employee ID Card",
+    "Health Insurance Card",
+    "Immigration Documents (Visa or equivalent)",
+    "Professional License (e.g., medical license, law license)",
+    ];
 
   AbstractCustomClaims(
-    this.identificationNumber, {
+    {
+    required this.identificationNumber, 
+    required this.typeOfIdentificationNumber,
     required this.name, 
     required this.age,
     required this.gender,
-    required this.phoneNumber
+    required this.phoneNumber,
+    required this.supervisedClasses
     });
 
   Map<String, dynamic> toMap();
@@ -32,16 +52,27 @@ class StaffCustomClaims extends AbstractCustomClaims {
 
 
   
-StaffCustomClaims(super.identificationNumber, {required super.name,required super.age, required super.gender,required super.phoneNumber});
+StaffCustomClaims(
+   
+  {
+  required super.identificationNumber,
+  required super.typeOfIdentificationNumber,
+  required super.name,
+  required super.age, 
+  required super.gender,
+  required super.phoneNumber, required super.supervisedClasses
+  });
 
   // Providing concrete implementation of fromMap
   factory StaffCustomClaims.fromMap(Map<String, dynamic> map) {
     return StaffCustomClaims(
-      map['identificationNumber'],
+     identificationNumber:  map['identificationNumber'],
+    typeOfIdentificationNumber: map['typeOfIdentificationNumber'],
       name: map['name'],
       age: map['age'],
       gender: map['gender'],
-      phoneNumber: map['number'],
+      phoneNumber: map['phoneNumber'], 
+      supervisedClasses: 'supervisedClasses',
     );
   }
 
@@ -49,10 +80,12 @@ StaffCustomClaims(super.identificationNumber, {required super.name,required supe
   Map<String, dynamic> toMap() {
     return {
       'identificationNumber': identificationNumber,
+    'typeOfIdentificationNumber' : typeOfIdentificationNumber,
       'name': name,
       'age': age,
       'gender': gender,
-      'number': phoneNumber,
+      'phoneNumber': phoneNumber, 
+      'supervisedClasses': supervisedClasses,
     };
   }
 }

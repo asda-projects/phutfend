@@ -19,6 +19,7 @@ class AuthResponseMessages {
   // Define a map for error messages
   static const Map<String, String> _messages = {
     // bussiness logic messages
+    'missing-email': 'Please provide a email.',
     'successful-auth': 'successful authentication.',
     'missing-password': 'Please provide a password.',
     'user-disabled': 'The user corresponding to the given email has been disabled.',

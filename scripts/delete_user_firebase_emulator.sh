@@ -39,5 +39,5 @@ DELETE_RESPONSE=$(curl -X POST \
   }')
 
 # Debug: Print the response
-echo "Delete User Response: $DELETE_RESPONSE"
+echo $DELETE_RESPONSE
 

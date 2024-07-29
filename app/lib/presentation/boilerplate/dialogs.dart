@@ -6,12 +6,28 @@ import 'package:flutter/material.dart';
 
 
 
+void genericFormDialog(BuildContext context, Widget contentBody, {bool barrierDismissible = true}) {
+  showDialog(
+    
+    context: context,
+    barrierDismissible: barrierDismissible,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shadowColor: Theme.of(context).colorScheme.onTertiary,
+        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+        content: contentBody
+        );
+});
+}
+
+
 void showErrorDialog(BuildContext context, String title, String message) async {
 
 
   TextStyle defaultContentTextStyle = TextStyle(
     fontSize: 12,
-    color: Theme.of(context).colorScheme.primary,
+    color: Theme.of(context).scaffoldBackgroundColor,
+    fontWeight: FontWeight.bold
   );
 
   // Cache for translations
@@ -29,7 +45,8 @@ void showErrorDialog(BuildContext context, String title, String message) async {
     builder: (BuildContext context) {
       return AlertDialog(
         icon: const Icon(Icons.error_outline_rounded),
-        shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+        shadowColor: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.6),
+        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
         content: Text(
           translatedContent,
           style: defaultContentTextStyle,
