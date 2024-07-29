@@ -234,7 +234,7 @@ class _AddUserFormState extends State<AddUserForm> {
                   hintStyle: defaultTextFormStyle,
                   labelStyle: defaultTextFormStyle,
                   labelText: 'Social ID number',
-                  ifIsEmptyReturn: IfIsEmptyReturn.age,
+                  ifIsEmptyReturn: IfIsEmptyReturn.onlyNumber,
                   onChanged: (value) {},
                   controller: _socialID,
                   validator: textFormIsOnlyNumber,
