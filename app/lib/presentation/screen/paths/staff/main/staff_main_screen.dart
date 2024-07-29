@@ -39,8 +39,7 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
 
 
     TextStyle defaultTextStyle = TextStyle(
-        fontSize: 14,
-        fontFamily: "Tahoma",
+        // fontSize: 14,
         color: Theme.of(context).colorScheme.primary,
         );
 
@@ -106,11 +105,13 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
           glowColor: Theme.of(context).colorScheme.tertiary,
           glowCount: 2,
           glowRadiusFactor: 0.27,
+          
           duration: const Duration(milliseconds: 2000), 
           repeat: false, 
           
           child: 
             CircleAvatar(
+              radius: 0.5,
           backgroundImage:  customAssetImagem("default-user-avatar.png")
           // Para imagens locais, use AssetImage("caminho/para/imagem")
         ),
@@ -120,7 +121,8 @@ class _StaffMainScreenState extends State<StaffMainScreen> {
            ExpansionTile(
       title: 
       TranslatableText("Users",
-      TextStyle(color: Theme.of(context).colorScheme.primary),
+      TextStyle(
+        color: Theme.of(context).colorScheme.primary),
       ),
       leading:  Icon(Icons.group, color: Theme.of(context).colorScheme.primary),
       children: [
